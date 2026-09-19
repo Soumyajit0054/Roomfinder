@@ -1,0 +1,461 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="container">
+
+        <div class="row align-items-center justify-content-center g-5">
+
+
+            <!-- =====================================================
+                 LEFT SIDE - BRAND / IMAGE
+            ====================================================== -->
+
+            <div class="col-lg-6 d-none d-lg-block">
+
+                <div class="login-intro">
+
+                    <span class="badge bg-primary mb-3">
+
+                        <i class="bi bi-house-heart"></i>
+
+                        Welcome to RoomFinder
+
+                    </span>
+
+
+                    <h1>
+                        Find a place
+                        <span class="text-primary">
+                            you'll love
+                        </span>
+                        to call home.
+                    </h1>
+
+
+                    <p class="lead">
+
+                        Search comfortable rooms, PGs and
+                        rental properties that match your
+                        budget and lifestyle.
+
+                    </p>
+
+
+                    <div class="login-features mt-4">
+
+                        <div class="login-feature">
+
+                            <div class="login-feature-icon">
+
+                                <i class="bi bi-search"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Easy Property Search
+                                </strong>
+
+                                <small>
+                                    Find rooms according to your needs.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="login-feature">
+
+                            <div class="login-feature-icon">
+
+                                <i class="bi bi-shield-check"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Trusted Listings
+                                </strong>
+
+                                <small>
+                                    Discover properties with confidence.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="login-feature">
+
+                            <div class="login-feature-icon">
+
+                                <i class="bi bi-heart"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Save Your Favorites
+                                </strong>
+
+                                <small>
+                                    Keep the rooms you love in one place.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                 RIGHT SIDE - LOGIN FORM
+            ====================================================== -->
+
+            <div class="col-md-8 col-lg-5">
+
+                <div class="auth-card login-card">
+
+
+                    <!-- LOGO -->
+
+                    <div class="text-center mb-4">
+
+                        <div class="auth-logo">
+
+                            <i class="bi bi-house-heart-fill"></i>
+
+                        </div>
+
+
+                        <h2 class="mt-3 mb-1">
+                            Welcome Back
+                        </h2>
+
+
+                        <p class="text-muted">
+                            Sign in to continue to RoomFinder
+                        </p>
+
+                    </div>
+
+
+                    <!-- FLASH MESSAGES -->
+
+                    {% with messages = get_flashed_messages(
+                        with_categories=true
+                    ) %}
+
+                        {% if messages %}
+
+                            {% for category, message in messages %}
+
+                                <div
+                                    class="alert alert-{{ category }}"
+                                    role="alert"
+                                >
+
+                                    <i class="bi bi-info-circle me-2"></i>
+
+                                    {{ message }}
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    {% endwith %}
+
+
+                    <!-- LOGIN FORM -->
+
+                    <form
+                        method="POST"
+                        novalidate
+                    >
+
+
+                        <!-- EMAIL -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="email"
+                                class="form-label"
+                            >
+
+                                Email Address
+
+                            </label>
+
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-envelope"></i>
+
+                                </span>
+
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="form-control"
+                                    placeholder="Enter your email"
+                                    autocomplete="email"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="mb-3">
+
+                            <div class="d-flex
+                                        justify-content-between
+                                        align-items-center">
+
+                                <label
+                                    for="password"
+                                    class="form-label mb-0"
+                                >
+
+                                    Password
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="input-group mt-2">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-lock"></i>
+
+                                </span>
+
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-control"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+
+
+                                <button
+                                    type="button"
+                                    class="btn password-toggle"
+                                    id="togglePassword"
+                                    aria-label="Show password"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REMEMBER -->
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center
+                                    mb-4">
+
+                            <div class="form-check">
+
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="remember"
+                                    name="remember"
+                                >
+
+                                <label
+                                    class="form-check-label"
+                                    for="remember"
+                                >
+                                    Remember me
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- LOGIN BUTTON -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-lg w-100"
+                        >
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                            Sign In
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- REGISTER -->
+
+                    <div class="auth-divider">
+
+                        <span>
+                            OR
+                        </span>
+
+                    </div>
+
+
+                    <div class="text-center">
+
+                        <p class="mb-0 text-muted">
+
+                            Don't have an account?
+
+                            <a
+                                href="{{ url_for('auth.register') }}"
+                                class="fw-semibold"
+                            >
+
+                                Create an account
+
+                                <i class="bi bi-arrow-right ms-1"></i>
+
+                            </a>
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- SECURITY NOTE -->
+
+                    <div class="login-security mt-4">
+
+                        <i class="bi bi-shield-lock"></i>
+
+                        <span>
+                            Your account information is securely protected.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     PASSWORD SHOW / HIDE
+====================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const togglePassword =
+        document.getElementById("togglePassword");
+
+
+    if (passwordInput && togglePassword) {
+
+        togglePassword.addEventListener(
+            "click",
+            function () {
+
+                const icon =
+                    togglePassword.querySelector("i");
+
+
+                if (passwordInput.type === "password") {
+
+                    passwordInput.type = "text";
+
+                    icon.classList.remove(
+                        "bi-eye"
+                    );
+
+                    icon.classList.add(
+                        "bi-eye-slash"
+                    );
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+
+                } else {
+
+                    passwordInput.type = "password";
+
+                    icon.classList.remove(
+                        "bi-eye-slash"
+                    );
+
+                    icon.classList.add(
+                        "bi-eye"
+                    );
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

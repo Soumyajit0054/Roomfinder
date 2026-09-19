@@ -1,0 +1,909 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Property | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="property-form-page">
+
+    <div class="container py-5">
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9 col-xl-8">
+
+                <div class="property-form-header">
+
+                    <div>
+
+                        <span class="form-eyebrow">
+                            OWNER PANEL
+                        </span>
+
+                        <h1>
+                            Add a New Property
+                        </h1>
+
+                        <p>
+                            Add your property details and help tenants
+                            find their next home.
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-header-icon">
+
+                        <i class="bi bi-house-add"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     FORM CARD
+                ================================================== -->
+
+                <div class="property-form-card">
+
+
+                    <!-- FORM PROGRESS -->
+
+                    <div class="form-progress">
+
+                        <div class="progress-step active">
+
+                            <span>1</span>
+
+                            <div>
+                                <strong>
+                                    Property Details
+                                </strong>
+
+                                <small>
+                                    Basic information
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-line"></div>
+
+
+                        <div class="progress-step">
+
+                            <span>2</span>
+
+                            <div>
+                                <strong>
+                                    Photos
+                                </strong>
+
+                                <small>
+                                    Add property images
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-line"></div>
+
+
+                        <div class="progress-step">
+
+                            <span>3</span>
+
+                            <div>
+                                <strong>
+                                    Publish
+                                </strong>
+
+                                <small>
+                                    Review & submit
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data"
+                        id="propertyForm"
+                    >
+
+
+                        <!-- =================================================
+                             SECTION 1 — BASIC INFORMATION
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+                                    <i class="bi bi-info-circle"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>
+                                        Basic Information
+                                    </h4>
+
+                                    <p>
+                                        Tell tenants about your property.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- TITLE -->
+
+                            <div class="mb-4">
+
+                                <label
+                                    for="title"
+                                    class="form-label"
+                                >
+
+                                    Property Title
+
+                                    <span class="required-star">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    class="form-control form-control-lg"
+                                    placeholder="e.g. Spacious Single Room near Salt Lake"
+                                    maxlength="150"
+                                    required
+                                >
+
+
+                                <div class="form-help">
+                                    Give your property a clear and attractive title.
+                                </div>
+
+                            </div>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <div class="mb-0">
+
+                                <label
+                                    for="description"
+                                    class="form-label"
+                                >
+
+                                    Description
+
+                                </label>
+
+
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    class="form-control"
+                                    rows="5"
+                                    maxlength="2000"
+                                    placeholder="Describe the room, surroundings, facilities and anything important for tenants..."
+                                ></textarea>
+
+
+                                <div class="form-help">
+                                    A detailed description helps tenants understand your property better.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SECTION 2 — LOCATION
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>
+                                        Location
+                                    </h4>
+
+                                    <p>
+                                        Where is your property located?
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-4">
+
+
+                                <!-- LOCATION -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="location"
+                                        class="form-label"
+                                    >
+
+                                        City / Area
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+
+
+                                        <input
+                                            type="text"
+                                            id="location"
+                                            name="location"
+                                            class="form-control"
+                                            placeholder="e.g. Salt Lake, Kolkata"
+                                            maxlength="150"
+                                            required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ADDRESS -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="address"
+                                        class="form-label"
+                                    >
+
+                                        Full Address
+
+                                    </label>
+
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+                                            <i class="bi bi-pin-map"></i>
+                                        </span>
+
+
+                                        <input
+                                            type="text"
+                                            id="address"
+                                            name="address"
+                                            class="form-control"
+                                            placeholder="House no., street, landmark"
+                                            maxlength="255"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SECTION 3 — RENT & PROPERTY TYPE
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+                                    <i class="bi bi-cash-stack"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>
+                                        Rent & Property Details
+                                    </h4>
+
+                                    <p>
+                                        Set the rent and property preferences.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-4">
+
+
+                                <!-- RENT -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="rent"
+                                        class="form-label"
+                                    >
+
+                                        Monthly Rent
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+                                            ₹
+                                        </span>
+
+
+                                        <input
+                                            type="number"
+                                            id="rent"
+                                            name="rent"
+                                            class="form-control"
+                                            placeholder="8000"
+                                            min="1"
+                                            step="1"
+                                            required
+                                        >
+
+
+                                        <span class="input-group-text">
+                                            / month
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ROOM TYPE -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="room_type"
+                                        class="form-label"
+                                    >
+
+                                        Room Type
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <select
+                                        id="room_type"
+                                        name="room_type"
+                                        class="form-select"
+                                        required
+                                    >
+
+                                        <option value="" selected disabled>
+                                            Select room type
+                                        </option>
+
+                                        <option value="Single">
+                                            Single Room
+                                        </option>
+
+                                        <option value="Double">
+                                            Double Room
+                                        </option>
+
+                                        <option value="PG">
+                                            PG
+                                        </option>
+
+                                        <option value="1BHK">
+                                            1BHK
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- FURNISHED -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="furnished"
+                                        class="form-label"
+                                    >
+
+                                        Furnished
+
+                                    </label>
+
+
+                                    <select
+                                        id="furnished"
+                                        name="furnished"
+                                        class="form-select"
+                                    >
+
+                                        <option value="Yes">
+                                            Yes
+                                        </option>
+
+                                        <option value="No">
+                                            No
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- FOOD -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="food_available"
+                                        class="form-label"
+                                    >
+
+                                        Food Available
+
+                                    </label>
+
+
+                                    <select
+                                        id="food_available"
+                                        name="food_available"
+                                        class="form-select"
+                                    >
+
+                                        <option value="Yes">
+                                            Yes
+                                        </option>
+
+                                        <option value="No">
+                                            No
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- GENDER -->
+
+                                <div class="col-md-12">
+
+                                    <label
+                                        for="gender_preference"
+                                        class="form-label"
+                                    >
+
+                                        Suitable For
+
+                                    </label>
+
+
+                                    <select
+                                        id="gender_preference"
+                                        name="gender_preference"
+                                        class="form-select"
+                                    >
+
+                                        <option value="Any">
+                                            Anyone
+                                        </option>
+
+                                        <option value="Male">
+                                            Male
+                                        </option>
+
+                                        <option value="Female">
+                                            Female
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SECTION 4 — IMAGES
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+                                    <i class="bi bi-images"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>
+                                        Property Photos
+                                    </h4>
+
+                                    <p>
+                                        Upload clear photos of your property.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <label
+                                for="images"
+                                class="upload-area"
+                                id="uploadArea"
+                            >
+
+                                <div class="upload-icon">
+
+                                    <i class="bi bi-cloud-arrow-up"></i>
+
+                                </div>
+
+
+                                <h5>
+                                    Upload Property Images
+                                </h5>
+
+
+                                <p>
+                                    Click here to choose images
+                                    from your computer.
+                                </p>
+
+
+                                <span>
+                                    JPG, JPEG or PNG • Multiple images allowed
+                                </span>
+
+
+                                <input
+                                    type="file"
+                                    id="images"
+                                    name="images"
+                                    multiple
+                                    accept="image/jpeg,image/png,image/jpg"
+                                    hidden
+                                >
+
+                            </label>
+
+
+                            <!-- IMAGE PREVIEW -->
+
+                            <div
+                                id="imagePreview"
+                                class="image-preview-grid"
+                            >
+                            </div>
+
+
+                            <div class="form-help mt-2">
+
+                                <i class="bi bi-info-circle"></i>
+
+                                Use good-quality images showing the room,
+                                bathroom and other important areas.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             FINAL NOTICE
+                        ================================================== -->
+
+                        <div class="publish-notice">
+
+                            <div class="publish-notice-icon">
+
+                                <i class="bi bi-shield-check"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Before you publish
+                                </strong>
+
+                                <p>
+                                    Make sure all property information
+                                    is accurate. Your listing may be
+                                    reviewed before becoming visible
+                                    to tenants.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             ACTIONS
+                        ================================================== -->
+
+                        <div class="form-actions">
+
+                            <a
+                                href="{{ url_for('owner.properties') }}"
+                                class="btn btn-light btn-lg"
+                            >
+
+                                <i class="bi bi-arrow-left me-2"></i>
+
+                                Cancel
+
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-lg"
+                            >
+
+                                <i class="bi bi-check2-circle me-2"></i>
+
+                                Add Property
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     IMAGE PREVIEW SCRIPT
+====================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const imageInput =
+        document.getElementById("images");
+
+    const preview =
+        document.getElementById("imagePreview");
+
+    const uploadArea =
+        document.getElementById("uploadArea");
+
+
+    if (!imageInput || !preview) {
+        return;
+    }
+
+
+    imageInput.addEventListener("change", function () {
+
+        preview.innerHTML = "";
+
+
+        const files = Array.from(this.files);
+
+
+        files.forEach(function (file) {
+
+            if (!file.type.startsWith("image/")) {
+                return;
+            }
+
+
+            const reader = new FileReader();
+
+
+            reader.onload = function (event) {
+
+                const wrapper =
+                    document.createElement("div");
+
+                wrapper.className =
+                    "image-preview-item";
+
+
+                const image =
+                    document.createElement("img");
+
+                image.src = event.target.result;
+
+                image.alt = "Property preview";
+
+
+                wrapper.appendChild(image);
+
+                preview.appendChild(wrapper);
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        });
+
+    });
+
+    /* Drag & Drop */
+
+    uploadArea.addEventListener(
+        "drop",
+        function (event) {
+
+            event.preventDefault();
+
+            uploadArea.classList.remove("dragging");
+
+
+            const droppedFiles =
+                Array.from(event.dataTransfer.files || []);
+
+
+            const imageFiles =
+                droppedFiles.filter(function (file) {
+
+                    return file.type.startsWith("image/");
+
+                });
+
+
+            if (!imageFiles.length) {
+
+                alert(
+                    "Please drop valid image files."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                /*
+                * FileList direct assign kora jay na.
+                * DataTransfer use kore input-er files set korchi.
+                */
+
+                const dataTransfer =
+                    new DataTransfer();
+
+
+                imageFiles.forEach(
+                    function (file) {
+
+                        dataTransfer.items.add(
+                            file
+                        );
+
+                    }
+                );
+
+
+                imageInput.files =
+                    dataTransfer.files;
+
+
+                /*
+                * Existing preview logic trigger
+                */
+
+                imageInput.dispatchEvent(
+                    new Event("change")
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Drag & drop error:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    uploadArea.addEventListener(
+        "dragleave",
+        function () {
+
+            uploadArea.classList.remove("dragging");
+
+        }
+    );
+
+
+    uploadArea.addEventListener(
+        "drop",
+        function (event) {
+
+            event.preventDefault();
+
+            uploadArea.classList.remove("dragging");
+
+        }
+    );
+
+});
+
+</script>
+
+{% endblock %}

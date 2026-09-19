@@ -1,0 +1,457 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Requests | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="tenant-requests-page">
+
+    <div class="container py-5">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <div class="requests-page-header">
+
+            <div>
+
+                <span class="requests-eyebrow">
+                    TENANT PANEL
+                </span>
+
+                <h1>
+                    My Rental Requests
+                </h1>
+
+                <p>
+                    Track the properties you have requested and
+                    monitor the status of your applications.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-search me-2"></i>
+
+                Find More Rooms
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             REQUEST SUMMARY
+        ====================================================== -->
+
+        <div class="requests-summary">
+
+            <div class="request-summary-item">
+
+                <div class="request-summary-icon">
+
+                    <i class="bi bi-send"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Requests
+                    </span>
+
+                    <strong>
+                        {{ requests|length }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="request-summary-divider"></div>
+
+
+            <div class="request-summary-item">
+
+                <div class="request-summary-icon pending">
+
+                    <i class="bi bi-clock"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Pending
+                    </span>
+
+                    <strong>
+                        {{ requests|selectattr("status", "equalto", "pending")|list|length }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="request-summary-divider"></div>
+
+
+            <div class="request-summary-item">
+
+                <div class="request-summary-icon accepted">
+
+                    <i class="bi bi-check-circle"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Accepted
+                    </span>
+
+                    <strong>
+                        {{ requests|selectattr("status", "equalto", "accepted")|list|length }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="request-summary-divider"></div>
+
+
+            <div class="request-summary-item">
+
+                <div class="request-summary-icon rejected">
+
+                    <i class="bi bi-x-circle"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Rejected
+                    </span>
+
+                    <strong>
+                        {{ requests|selectattr("status", "equalto", "rejected")|list|length }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             REQUEST LIST
+        ====================================================== -->
+
+        {% if requests %}
+
+        <div class="requests-list-card">
+
+
+            <!-- HEADER -->
+
+            <div class="requests-list-header">
+
+                <div>
+
+                    <h3>
+                        Request History
+                    </h3>
+
+                    <p>
+                        A complete list of your rental requests.
+                    </p>
+
+                </div>
+
+
+                <span class="request-count-badge">
+
+                    {{ requests|length }}
+
+                    Request{% if requests|length != 1 %}s{% endif %}
+
+                </span>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-responsive">
+
+                <table class="table tenant-requests-table align-middle mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Property
+                            </th>
+
+                            <th>
+                                Location
+                            </th>
+
+                            <th>
+                                Monthly Rent
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Requested On
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for request in requests %}
+
+                        <tr>
+
+
+                            <!-- PROPERTY -->
+
+                            <td>
+
+                                <div class="request-property-info">
+
+                                    <div class="request-property-icon">
+
+                                        <i class="bi bi-house"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <strong>
+                                            {{ request.title }}
+                                        </strong>
+
+                                        <small>
+                                            Rental Property
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- LOCATION -->
+
+                            <td>
+
+                                <div class="request-location">
+
+                                    <i class="bi bi-geo-alt"></i>
+
+                                    <span>
+                                        {{ request.location }}
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- RENT -->
+
+                            <td>
+
+                                <div class="request-rent">
+
+                                    ₹{{ request.rent }}
+
+                                    <small>
+                                        / month
+                                    </small>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if request.status == "pending" %}
+
+                                <span class="request-status pending-status">
+
+                                    <span class="request-status-dot"></span>
+
+                                    Pending
+
+                                </span>
+
+
+                                {% elif request.status == "accepted" %}
+
+                                <span class="request-status accepted-status">
+
+                                    <span class="request-status-dot"></span>
+
+                                    Accepted
+
+                                </span>
+
+
+                                {% else %}
+
+                                <span class="request-status rejected-status">
+
+                                    <span class="request-status-dot"></span>
+
+                                    Rejected
+
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- DATE -->
+
+                            <td>
+
+                                <div class="request-date">
+
+                                    <i class="bi bi-calendar3"></i>
+
+                                    <span>
+                                        {{ request.created_at }}
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =====================================================
+             EMPTY STATE
+        ====================================================== -->
+
+        <div class="requests-empty-state">
+
+            <div class="requests-empty-icon">
+
+                <i class="bi bi-send"></i>
+
+            </div>
+
+
+            <h2>
+                No Rental Requests Yet
+            </h2>
+
+
+            <p>
+                You haven't sent any rental requests yet.
+                Explore available properties and send a request
+                to an owner when you find a room you like.
+            </p>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-search me-2"></i>
+
+                Browse Available Rooms
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =====================================================
+             INFORMATION NOTE
+        ====================================================== -->
+
+        {% if requests %}
+
+        <div class="requests-information">
+
+            <div class="information-icon">
+
+                <i class="bi bi-info-circle"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    About your requests
+                </strong>
+
+                <p>
+                    <b>Pending</b> means the owner has not responded yet.
+                    <b>Accepted</b> means your rental request has been approved.
+                    <b>Rejected</b> means the owner has declined the request.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+{% endblock %}

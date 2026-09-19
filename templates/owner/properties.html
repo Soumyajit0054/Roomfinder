@@ -1,0 +1,474 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Properties | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="owner-properties-page">
+
+    <div class="container py-5">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <div class="properties-page-header">
+
+            <div>
+
+                <span class="properties-eyebrow">
+                    OWNER PANEL
+                </span>
+
+                <h1>
+                    My Properties
+                </h1>
+
+                <p>
+                    Manage your rental listings, availability and
+                    property information.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('owner.add_property') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-plus-circle me-2"></i>
+
+                Add Property
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             SUMMARY
+        ====================================================== -->
+
+        <div class="property-summary-bar">
+
+            <div class="property-summary-item">
+
+                <div class="summary-icon">
+
+                    <i class="bi bi-houses"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Listings
+                    </span>
+
+                    <strong>
+                        {{ properties|length }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="property-summary-item">
+
+                <div class="summary-icon available">
+
+                    <i class="bi bi-check-circle"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Available
+                    </span>
+
+                    <strong>
+
+                        {{ properties
+                           |selectattr("available")
+                           |list
+                           |length }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="property-summary-item">
+
+                <div class="summary-icon inactive">
+
+                    <i class="bi bi-pause-circle"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Not Available
+                    </span>
+
+                    <strong>
+
+                        {{ properties
+                           |rejectattr("available")
+                           |list
+                           |length }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PROPERTY LIST
+        ====================================================== -->
+
+        {% if properties %}
+
+        <div class="properties-list-card">
+
+            <div class="properties-list-header">
+
+                <div>
+
+                    <h4>
+                        Your Listings
+                    </h4>
+
+                    <p>
+                        All properties added to RoomFinder.
+                    </p>
+
+                </div>
+
+
+                <span class="listing-count">
+
+                    {{ properties|length }}
+                    Listing{% if properties|length != 1 %}s{% endif %}
+
+                </span>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table properties-table align-middle mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Property
+                            </th>
+
+                            <th>
+                                Location
+                            </th>
+
+                            <th>
+                                Monthly Rent
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th class="text-end">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for property in properties %}
+
+                        <tr>
+
+
+                            <!-- PROPERTY -->
+
+                            <td>
+
+                                <div class="property-table-info">
+
+
+                                    {% if property.image %}
+
+                                    <img
+                                        src="{{ url_for(
+                                            'static',
+                                            filename='uploads/' + property.image
+                                        ) }}"
+                                        alt="{{ property.title }}"
+                                        class="property-table-image"
+                                    >
+
+                                    {% else %}
+
+                                    <div class="property-table-placeholder">
+
+                                        <i class="bi bi-house"></i>
+
+                                    </div>
+
+                                    {% endif %}
+
+
+                                    <div>
+
+                                        <strong>
+                                            {{ property.title }}
+                                        </strong>
+
+                                        <small>
+                                            {{ property.room_type }}
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- LOCATION -->
+
+                            <td>
+
+                                <div class="table-location">
+
+                                    <i class="bi bi-geo-alt"></i>
+
+                                    <span>
+                                        {{ property.location }}
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- RENT -->
+
+                            <td>
+
+                                <div class="table-rent">
+
+                                    ₹{{ property.rent }}
+
+                                    <small>
+                                        / month
+                                    </small>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if property.available %}
+
+                                <span class="property-status available-status">
+
+                                    <span class="status-dot"></span>
+
+                                    Available
+
+                                </span>
+
+                                {% else %}
+
+                                <span class="property-status inactive-status">
+
+                                    <span class="status-dot"></span>
+
+                                    Not Available
+
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+
+                            <td class="text-end">
+
+                                <div class="property-actions">
+
+
+                                    <!-- VIEW -->
+
+                                    <a
+                                        href="{{ url_for(
+                                            'main.property_details',
+                                            property_id=property.id
+                                        ) }}"
+                                        class="property-action view-action"
+                                        title="View Property"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </a>
+
+
+                                    <!-- EDIT -->
+
+                                    <a
+                                        href="{{ url_for(
+                                            'owner.edit_property',
+                                            property_id=property.id
+                                        ) }}"
+                                        class="property-action edit-action"
+                                        title="Edit Property"
+                                    >
+
+                                        <i class="bi bi-pencil"></i>
+
+                                    </a>
+
+
+                                    <!-- DELETE -->
+
+                                    <form
+                                        action="{{ url_for(
+                                            'owner.delete_property',
+                                            property_id=property.id
+                                        ) }}"
+                                        method="POST"
+                                        class="d-inline"
+                                        onsubmit="return confirmDelete();"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="property-action delete-action"
+                                            title="Delete Property"
+                                        >
+
+                                            <i class="bi bi-trash3"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =====================================================
+             EMPTY STATE
+        ====================================================== -->
+
+        <div class="properties-empty-state">
+
+            <div class="empty-property-icon">
+
+                <i class="bi bi-house-add"></i>
+
+            </div>
+
+
+            <h3>
+                No Properties Yet
+            </h3>
+
+
+            <p>
+                You haven't added any rental properties.
+                Create your first listing and start connecting
+                with potential tenants.
+            </p>
+
+
+            <a
+                href="{{ url_for('owner.add_property') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-plus-circle me-2"></i>
+
+                Add Your First Property
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     DELETE CONFIRMATION
+====================================================== -->
+
+<script>
+
+function confirmDelete() {
+
+    return confirm(
+        "Are you sure you want to delete this property?\n\n" +
+        "This action cannot be undone."
+    );
+
+}
+
+</script>
+
+{% endblock %}

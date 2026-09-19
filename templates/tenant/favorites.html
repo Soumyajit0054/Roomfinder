@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Favorites | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="tenant-favorites-page">
+
+    <div class="container py-5">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <div class="favorites-page-header">
+
+            <div>
+
+                <span class="favorites-eyebrow">
+                    TENANT PANEL
+                </span>
+
+                <h1>
+                    <i class="bi bi-heart-fill"></i>
+                    My Favorites
+                </h1>
+
+                <p>
+                    Properties you've saved for later.
+                    Compare your favorite rooms and find your next home.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-search me-2"></i>
+
+                Explore Rooms
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             FAVORITES SUMMARY
+        ====================================================== -->
+
+        <div class="favorites-summary">
+
+            <div class="favorites-summary-icon">
+
+                <i class="bi bi-heart-fill"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Saved Properties
+                </span>
+
+                <strong>
+                    {{ properties|length }}
+                </strong>
+
+            </div>
+
+
+            <div class="favorites-summary-message">
+
+                <i class="bi bi-bookmark-check"></i>
+
+                Keep your favorite properties here
+                while you decide.
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PROPERTY LIST
+        ====================================================== -->
+
+        {% if properties %}
+
+        <div class="favorites-section-header">
+
+            <div>
+
+                <h2>
+                    Saved Properties
+                </h2>
+
+                <p>
+                    Your shortlisted rental properties.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            {% for property in properties %}
+
+            <div class="col-md-6 col-lg-4">
+
+                <article class="favorite-property-card">
+
+
+                    <!-- =================================================
+                         IMAGE
+                    ================================================== -->
+
+                    <div class="favorite-image-wrapper">
+
+                        {% if property.image %}
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='uploads/' + property.image
+                            ) }}"
+                            alt="{{ property.title }}"
+                            class="favorite-property-image"
+                        >
+
+                        {% else %}
+
+                        <div class="favorite-image-placeholder">
+
+                            <i class="bi bi-house"></i>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- FAVORITE BADGE -->
+
+                        <div class="favorite-heart-badge">
+
+                            <i class="bi bi-heart-fill"></i>
+
+                        </div>
+
+
+                        <!-- ROOM TYPE -->
+
+                        <span class="favorite-room-type">
+
+                            {{ property.room_type }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         CARD BODY
+                    ================================================== -->
+
+                    <div class="favorite-property-body">
+
+
+                        <h3>
+                            {{ property.title }}
+                        </h3>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="favorite-location">
+
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                            <span>
+                                {{ property.location }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- PROPERTY INFO -->
+
+                        <div class="favorite-property-meta">
+
+
+                            {% if property.furnished %}
+
+                            <span>
+
+                                <i class="bi bi-box-seam"></i>
+
+                                {{ property.furnished }}
+
+                            </span>
+
+                            {% endif %}
+
+
+                            {% if property.food_available %}
+
+                            <span>
+
+                                <i class="bi bi-cup-hot"></i>
+
+                                Food {{ property.food_available }}
+
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- =================================================
+                             FOOTER
+                        ================================================== -->
+
+                        <div class="favorite-card-footer">
+
+
+                            <div class="favorite-price">
+
+                                <strong>
+                                    ₹{{ property.rent }}
+                                </strong>
+
+                                <span>
+                                    / month
+                                </span>
+
+                            </div>
+
+
+                            <a
+                                href="{{ url_for(
+                                    'main.property_details',
+                                    property_id=property.id
+                                ) }}"
+                                class="favorite-view-button"
+                            >
+
+                                View Details
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             REMOVE FAVORITE
+                        ================================================== -->
+
+                        <form
+                            action="{{ url_for(
+                                'tenant.favorite',
+                                property_id=property.id
+                            ) }}"
+                            method="POST"
+                            class="remove-favorite-form"
+                        >
+
+                            <button
+                                type="submit"
+                                class="remove-favorite-button"
+                            >
+
+                                <i class="bi bi-heartbreak"></i>
+
+                                Remove from Favorites
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =====================================================
+             EMPTY STATE
+        ====================================================== -->
+
+        <div class="favorites-empty-state">
+
+            <div class="favorites-empty-icon">
+
+                <i class="bi bi-heart"></i>
+
+            </div>
+
+
+            <h2>
+                Your Favorites Are Empty
+            </h2>
+
+
+            <p>
+                You haven't saved any properties yet.
+                When you find a room you like, click the heart
+                button to save it here.
+            </p>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-search me-2"></i>
+
+                Find Your Perfect Room
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+{% endblock %}

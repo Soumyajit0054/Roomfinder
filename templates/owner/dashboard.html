@@ -1,0 +1,409 @@
+{% extends "base.html" %}
+
+{% block title %}
+Owner Dashboard | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="owner-dashboard-page">
+
+    <div class="container py-5">
+
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <span class="dashboard-eyebrow">
+                    OWNER DASHBOARD
+                </span>
+
+                <h1>
+                    Welcome back, {{ session.get("name") }} 👋
+                </h1>
+
+                <p>
+                    Manage your properties and rental requests
+                    from one place.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('owner.add_property') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-plus-circle me-2"></i>
+
+                Add Property
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             STATISTICS
+        ====================================================== -->
+
+        <div class="row g-4 mt-2">
+
+
+            <!-- TOTAL PROPERTIES -->
+
+            <div class="col-md-4">
+
+                <div class="owner-stat-card">
+
+                    <div class="stat-card-top">
+
+                        <div class="stat-icon blue">
+
+                            <i class="bi bi-houses"></i>
+
+                        </div>
+
+                        <span class="stat-label">
+                            PROPERTIES
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-number">
+                        {{ property_count }}
+                    </div>
+
+
+                    <p>
+                        Total Properties
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- AVAILABLE -->
+
+            <div class="col-md-4">
+
+                <div class="owner-stat-card">
+
+                    <div class="stat-card-top">
+
+                        <div class="stat-icon green">
+
+                            <i class="bi bi-house-check"></i>
+
+                        </div>
+
+                        <span class="stat-label">
+                            AVAILABLE
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-number">
+                        {{ available_count }}
+                    </div>
+
+
+                    <p>
+                        Available Properties
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- REQUESTS -->
+
+            <div class="col-md-4">
+
+                <div class="owner-stat-card">
+
+                    <div class="stat-card-top">
+
+                        <div class="stat-icon orange">
+
+                            <i class="bi bi-envelope"></i>
+
+                        </div>
+
+                        <span class="stat-label">
+                            REQUESTS
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-number">
+                        {{ pending_count }}
+                    </div>
+
+
+                    <p>
+                        Pending Rental Requests
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             QUICK ACTIONS
+        ====================================================== -->
+
+        <div class="row g-4 mt-4">
+
+
+            <div class="col-lg-8">
+
+                <div class="dashboard-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h4>
+                                Manage Your Properties
+                            </h4>
+
+                            <p>
+                                Add, edit and manage your rental listings.
+                            </p>
+
+                        </div>
+
+                        <i class="bi bi-building"></i>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <a
+                            href="{{ url_for('owner.add_property') }}"
+                            class="quick-action"
+                        >
+
+                            <div class="quick-action-icon">
+
+                                <i class="bi bi-house-add"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Add New Property
+                                </strong>
+
+                                <small>
+                                    Create a new rental listing
+                                </small>
+
+                            </div>
+
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+
+                        <a
+                            href="{{ url_for('owner.properties') }}"
+                            class="quick-action"
+                        >
+
+                            <div class="quick-action-icon">
+
+                                <i class="bi bi-houses"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    My Properties
+                                </strong>
+
+                                <small>
+                                    View and manage your listings
+                                </small>
+
+                            </div>
+
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+
+                        <a
+                            href="{{ url_for('owner.requests') }}"
+                            class="quick-action"
+                        >
+
+                            <div class="quick-action-icon">
+
+                                <i class="bi bi-chat-left-text"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Rental Requests
+                                </strong>
+
+                                <small>
+                                    Review requests from tenants
+                                </small>
+
+                            </div>
+
+
+                            <span class="quick-action-badge">
+
+                                {{ pending_count }}
+
+                            </span>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 OWNER TIPS
+            ================================================== -->
+
+            <div class="col-lg-4">
+
+                <div class="dashboard-tip-panel">
+
+                    <div class="tip-icon">
+
+                        <i class="bi bi-lightbulb"></i>
+
+                    </div>
+
+
+                    <h4>
+                        Make Your Listing Better
+                    </h4>
+
+
+                    <p>
+                        Properties with clear descriptions and
+                        high-quality photos can give tenants a
+                        better understanding of your room.
+                    </p>
+
+
+                    <div class="tip-list">
+
+                        <div>
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Add clear property photos
+
+                        </div>
+
+
+                        <div>
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Keep rent information accurate
+
+                        </div>
+
+
+                        <div>
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Provide detailed descriptions
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             REQUEST CTA
+        ====================================================== -->
+
+        <div class="owner-request-banner mt-4">
+
+            <div class="request-banner-icon">
+
+                <i class="bi bi-bell"></i>
+
+            </div>
+
+
+            <div>
+
+                <h5>
+                    You have {{ pending_count }} pending request{% if pending_count != 1 %}s{% endif %}
+                </h5>
+
+                <p>
+                    Review tenant requests and respond to them
+                    from your requests panel.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('owner.requests') }}"
+                class="btn btn-outline-primary ms-auto"
+            >
+
+                View Requests
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

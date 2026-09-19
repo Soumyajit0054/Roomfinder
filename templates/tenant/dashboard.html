@@ -1,0 +1,423 @@
+{% extends "base.html" %}
+
+{% block title %}
+Tenant Dashboard | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="tenant-dashboard-page">
+
+    <div class="container py-5">
+
+
+        <!-- =====================================================
+             DASHBOARD HEADER
+        ====================================================== -->
+
+        <div class="tenant-dashboard-header">
+
+            <div>
+
+                <span class="tenant-eyebrow">
+                    TENANT DASHBOARD
+                </span>
+
+                <h1>
+                    Hello, {{ session.get("name") }} 👋
+                </h1>
+
+                <p>
+                    Discover comfortable rooms and find a place
+                    that feels like home.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-search me-2"></i>
+
+                Find a Room
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             QUICK STATS
+        ====================================================== -->
+
+        <div class="row g-4 mb-4">
+
+
+            <div class="col-md-4">
+
+                <div class="tenant-stat-card">
+
+                    <div class="tenant-stat-icon">
+
+                        <i class="bi bi-house"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Available Rooms
+                        </span>
+
+                        <strong>
+                            {{ properties|length }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="tenant-stat-card">
+
+                    <div class="tenant-stat-icon favorite">
+
+                        <i class="bi bi-heart"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Saved Rooms
+                        </span>
+
+                        <strong>
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="tenant-stat-card">
+
+                    <div class="tenant-stat-icon request">
+
+                        <i class="bi bi-send"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Rental Requests
+                        </span>
+
+                        <strong>
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             SEARCH PANEL
+        ====================================================== -->
+
+        <div class="tenant-search-panel mb-5">
+
+            <div class="search-panel-content">
+
+                <div class="search-panel-icon">
+
+                    <i class="bi bi-search"></i>
+
+                </div>
+
+                <div>
+
+                    <h4>
+                        Looking for a room?
+                    </h4>
+
+                    <p>
+                        Search properties according to your
+                        location, budget and room preference.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="btn btn-outline-primary"
+            >
+
+                Explore Rooms
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             AVAILABLE ROOMS HEADER
+        ====================================================== -->
+
+        <div class="rooms-section-header">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    RECOMMENDED FOR YOU
+                </span>
+
+                <h2>
+                    Available Rooms
+                </h2>
+
+                <p>
+                    Explore rooms and rental properties currently
+                    available on RoomFinder.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="view-all-link"
+            >
+
+                View All
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             PROPERTY CARDS
+        ====================================================== -->
+
+        <div class="row g-4">
+
+
+            {% for property in properties %}
+
+            <div class="col-md-6 col-lg-4">
+
+                <article class="tenant-property-card">
+
+
+                    <!-- IMAGE -->
+
+                    <div class="tenant-property-image-wrapper">
+
+                        {% if property.image %}
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='uploads/' + property.image
+                            ) }}"
+                            alt="{{ property.title }}"
+                            class="tenant-property-image"
+                        >
+
+                        {% else %}
+
+                        <div class="tenant-property-placeholder">
+
+                            <i class="bi bi-house"></i>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <span class="property-available-badge">
+
+                            <span></span>
+
+                            Available
+
+                        </span>
+
+
+                        <span class="property-type-badge">
+
+                            {{ property.room_type }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+
+                    <div class="tenant-property-body">
+
+                        <h3>
+                            {{ property.title }}
+                        </h3>
+
+
+                        <div class="tenant-property-location">
+
+                            <i class="bi bi-geo-alt"></i>
+
+                            <span>
+                                {{ property.location }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="tenant-property-meta">
+
+                            {% if property.furnished %}
+
+                            <span>
+
+                                <i class="bi bi-box-seam"></i>
+
+                                {{ property.furnished }}
+
+                            </span>
+
+                            {% endif %}
+
+
+                            {% if property.food_available %}
+
+                            <span>
+
+                                <i class="bi bi-cup-hot"></i>
+
+                                Food {{ property.food_available }}
+
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="tenant-property-footer">
+
+                            <div class="property-price">
+
+                                <strong>
+                                    ₹{{ property.rent }}
+                                </strong>
+
+                                <span>
+                                    / month
+                                </span>
+
+                            </div>
+
+
+                            <a
+                                href="{{ url_for(
+                                    'main.property_details',
+                                    property_id=property.id
+                                ) }}"
+                                class="property-view-button"
+                            >
+
+                                View Details
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            {% else %}
+
+
+            <!-- =================================================
+                 EMPTY STATE
+            ================================================== -->
+
+            <div class="col-12">
+
+                <div class="tenant-empty-state">
+
+                    <div class="tenant-empty-icon">
+
+                        <i class="bi bi-house-x"></i>
+
+                    </div>
+
+
+                    <h3>
+                        No Rooms Available
+                    </h3>
+
+
+                    <p>
+                        We couldn't find any available rooms right now.
+                        Try checking again later or explore all properties.
+                    </p>
+
+
+                    <a
+                        href="{{ url_for('main.properties') }}"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="bi bi-search me-2"></i>
+
+                        Browse Properties
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

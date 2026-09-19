@@ -1,0 +1,1036 @@
+{% extends "base.html" %}
+
+{% block title %}
+RoomFinder | Find Your Perfect Room
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="row align-items-center min-vh-75">
+
+
+            <!-- HERO TEXT -->
+
+            <div class="col-lg-7 mb-5 mb-lg-0">
+
+                <div class="hero-content">
+
+                    <span class="badge bg-primary mb-3">
+                        <i class="bi bi-stars"></i>
+                        India's Simple Room Finder
+                    </span>
+
+
+                    <h1 class="display-3 fw-bold">
+
+                        Find a place
+                        <span class="text-primary">
+                            you'll love
+                        </span>
+                        to call home.
+
+                    </h1>
+
+
+                    <p class="lead mt-4">
+
+                        Discover comfortable rooms, PGs and
+                        rental properties that match your
+                        location, lifestyle and budget.
+
+                    </p>
+
+
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+
+                        <a
+                            href="{{ url_for('main.properties') }}"
+                            class="btn btn-primary btn-lg px-4"
+                        >
+
+                            <i class="bi bi-search"></i>
+
+                            Explore Rooms
+
+                        </a>
+
+
+                        {% if not session.get("user_id") %}
+
+                        <a
+                            href="{{ url_for('auth.register') }}"
+                            class="btn btn-outline-primary btn-lg px-4"
+                        >
+
+                            Get Started
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- TRUST INFO -->
+
+                    <div class="row mt-5">
+
+                        <div class="col-4">
+
+                            <h4 class="fw-bold mb-0">
+                                100+
+                            </h4>
+
+                            <small class="text-muted">
+                                Properties
+                            </small>
+
+                        </div>
+
+
+                        <div class="col-4">
+
+                            <h4 class="fw-bold mb-0">
+                                50+
+                            </h4>
+
+                            <small class="text-muted">
+                                Owners
+                            </small>
+
+                        </div>
+
+
+                        <div class="col-4">
+
+                            <h4 class="fw-bold mb-0">
+                                500+
+                            </h4>
+
+                            <small class="text-muted">
+                                Happy Tenants
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO IMAGE -->
+
+            <div class="col-lg-5">
+
+                <div class="hero-image-wrapper">
+
+                    <img
+                        src="{{ url_for('static', filename='images/hero-room.jpg') }}"
+                        alt="Modern room"
+                        class="img-fluid hero-image"
+                    >
+
+
+                    <!-- FLOATING CARD -->
+
+                    <div class="floating-card floating-card-top">
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="floating-icon">
+
+                                <i class="bi bi-shield-check"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Verified Listings
+                                </strong>
+
+                                <small class="d-block text-muted">
+                                    Find with confidence
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-card floating-card-bottom">
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="floating-icon">
+
+                                <i class="bi bi-house-heart"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Your New Home
+                                </strong>
+
+                                <small class="d-block text-muted">
+                                    Starts here
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SEARCH SECTION
+===================================================== -->
+
+<section class="search-section">
+
+    <div class="container">
+
+        <div class="search-box">
+
+            <div class="text-center mb-4">
+
+                <span class="text-primary fw-semibold">
+                    FIND YOUR SPACE
+                </span>
+
+                <h2 class="mt-2">
+                    Search rooms that fit your life
+                </h2>
+
+                <p class="text-muted">
+                    Choose your preferences and discover
+                    suitable properties.
+                </p>
+
+            </div>
+
+
+            <form
+                action="{{ url_for('main.properties') }}"
+                method="GET"
+            >
+
+                <div class="row g-3">
+
+
+                    <!-- LOCATION -->
+
+                    <div class="col-lg-4">
+
+                        <label class="form-label">
+
+                            <i class="bi bi-geo-alt"></i>
+
+                            Location
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+
+                                <i class="bi bi-geo-alt text-primary"></i>
+
+                            </span>
+
+                            <input
+                                type="text"
+                                name="location"
+                                class="form-control"
+                                placeholder="Where do you want to live?"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MIN RENT -->
+
+                    <div class="col-lg-2">
+
+                        <label class="form-label">
+                            Minimum Rent
+                        </label>
+
+                        <input
+                            type="number"
+                            name="min_rent"
+                            class="form-control"
+                            placeholder="₹5,000"
+                        >
+
+                    </div>
+
+
+                    <!-- MAX RENT -->
+
+                    <div class="col-lg-2">
+
+                        <label class="form-label">
+                            Maximum Rent
+                        </label>
+
+                        <input
+                            type="number"
+                            name="max_rent"
+                            class="form-control"
+                            placeholder="₹15,000"
+                        >
+
+                    </div>
+
+
+                    <!-- ROOM TYPE -->
+
+                    <div class="col-lg-2">
+
+                        <label class="form-label">
+                            Room Type
+                        </label>
+
+                        <select
+                            name="room_type"
+                            class="form-select"
+                        >
+
+                            <option value="">
+                                Any Type
+                            </option>
+
+                            <option value="Single">
+                                Single
+                            </option>
+
+                            <option value="Double">
+                                Double
+                            </option>
+
+                            <option value="PG">
+                                PG
+                            </option>
+
+                            <option value="1BHK">
+                                1BHK
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- BUTTON -->
+
+                    <div class="col-lg-2 d-flex align-items-end">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100"
+                        >
+
+                            <i class="bi bi-search"></i>
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="py-5">
+
+    <div class="container">
+
+
+        <div class="text-center section-title">
+
+            <span class="text-primary fw-semibold">
+                WHY ROOMFINDER
+            </span>
+
+            <h2 class="mt-2">
+                Everything you need to find a room
+            </h2>
+
+            <p class="mx-auto">
+
+                We make room searching simple,
+                transparent and convenient.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- FEATURE 1 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-search"></i>
+
+                    </div>
+
+                    <h5>
+                        Easy Search
+                    </h5>
+
+                    <p>
+                        Quickly search properties using
+                        location, rent and room preferences.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE 2 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-funnel"></i>
+
+                    </div>
+
+                    <h5>
+                        Smart Filters
+                    </h5>
+
+                    <p>
+                        Narrow down hundreds of properties
+                        using useful filters.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE 3 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-heart"></i>
+
+                    </div>
+
+                    <h5>
+                        Save Favorites
+                    </h5>
+
+                    <p>
+                        Save properties you like and
+                        compare them later.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE 4 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-chat-dots"></i>
+
+                    </div>
+
+                    <h5>
+                        Contact Owners
+                    </h5>
+
+                    <p>
+                        Send rental requests directly
+                        to property owners.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     AVAILABLE PROPERTIES
+===================================================== -->
+
+<section class="py-5 bg-white">
+
+    <div class="container">
+
+
+        <div class="d-flex flex-wrap
+                    justify-content-between
+                    align-items-end
+                    mb-4">
+
+
+            <div>
+
+                <span class="text-primary fw-semibold">
+                    EXPLORE
+                </span>
+
+                <h2 class="mt-2 mb-1">
+                    Latest Properties
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Discover recently added rooms and properties.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="btn btn-outline-primary mt-3 mt-md-0"
+            >
+
+                View All Properties
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            {% for property in properties %}
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card property-card h-100">
+
+
+                    <!-- PROPERTY IMAGE -->
+
+                    <div class="property-image-wrapper">
+
+                        {% if property.image %}
+
+                        <img
+                            src="{{ url_for('static', filename='uploads/' + property.image) }}"
+                            class="card-img-top property-image"
+                            alt="{{ property.title }}"
+                        >
+
+                        {% else %}
+
+                        <img
+                            src="{{ url_for('static', filename='images/default-room.jpg') }}"
+                            class="card-img-top property-image"
+                            alt="Room"
+                        >
+
+                        {% endif %}
+
+
+                        <!-- PROPERTY BADGE -->
+
+                        <span class="property-status">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            Available
+
+                        </span>
+
+
+                        <!-- FAVORITE -->
+
+                        {% if session.get("role") == "tenant" %}
+
+                        <form
+                            action="{{ url_for('tenant.favorite', property_id=property.id) }}"
+                            method="POST"
+                        >
+
+                            <button
+                                type="submit"
+                                class="favorite-btn"
+                                title="Add to favorites"
+                            >
+
+                                <i class="bi bi-heart"></i>
+
+                            </button>
+
+                        </form>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- PROPERTY BODY -->
+
+                    <div class="card-body">
+
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-start">
+
+
+                            <div>
+
+                                <h5 class="property-title">
+
+                                    {{ property.title }}
+
+                                </h5>
+
+
+                                <p class="property-location">
+
+                                    <i class="bi bi-geo-alt-fill"></i>
+
+                                    {{ property.location }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="property-price">
+
+                            ₹{{ property.rent }}
+
+                            <span>
+                                / month
+                            </span>
+
+                        </div>
+
+
+                        <div class="property-features">
+
+
+                            <span>
+
+                                <i class="bi bi-door-open"></i>
+
+                                {{ property.room_type }}
+
+                            </span>
+
+
+                            <span>
+
+                                <i class="bi bi-lamp"></i>
+
+                                {{ property.furnished }}
+
+                            </span>
+
+
+                            <span>
+
+                                <i class="bi bi-egg-fried"></i>
+
+                                {{ property.food_available }}
+
+                            </span>
+
+
+                        </div>
+
+
+                        <hr>
+
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+
+                            <small class="text-muted">
+
+                                <i class="bi bi-person"></i>
+
+                                {{ property.owner_name }}
+
+                            </small>
+
+
+                            <a
+                                href="{{ url_for('main.property_details', property_id=property.id) }}"
+                                class="btn btn-primary btn-sm"
+                            >
+
+                                View Details
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% else %}
+
+
+            <div class="col-12">
+
+                <div class="empty-state">
+
+                    <i class="bi bi-house-x"></i>
+
+                    <h4>
+                        No properties available
+                    </h4>
+
+                    <p>
+                        We couldn't find any available rooms right now.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section class="py-5">
+
+    <div class="container">
+
+
+        <div class="text-center section-title">
+
+            <span class="text-primary fw-semibold">
+                SIMPLE PROCESS
+            </span>
+
+            <h2 class="mt-2">
+                Find your room in three easy steps
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <div class="step-card text-center">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div class="step-icon">
+
+                        <i class="bi bi-search"></i>
+
+                    </div>
+
+                    <h4>
+                        Search
+                    </h4>
+
+                    <p>
+                        Enter your preferred location,
+                        budget and room type.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="step-card text-center">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div class="step-icon">
+
+                        <i class="bi bi-house-check"></i>
+
+                    </div>
+
+                    <h4>
+                        Explore
+                    </h4>
+
+                    <p>
+                        Compare properties, check images,
+                        rent and available facilities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="step-card text-center">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div class="step-icon">
+
+                        <i class="bi bi-send"></i>
+
+                    </div>
+
+                    <h4>
+                        Send Request
+                    </h4>
+
+                    <p>
+                        Contact the owner and send your
+                        rental request.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     OWNER CTA
+===================================================== -->
+
+<section class="owner-cta py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+
+            <div class="col-lg-8">
+
+                <span class="badge bg-light text-primary mb-3">
+
+                    PROPERTY OWNERS
+
+                </span>
+
+
+                <h2 class="text-white fw-bold">
+
+                    Have a room or property to rent?
+
+                </h2>
+
+
+                <p class="text-white-50 mb-0">
+
+                    List your property on RoomFinder and
+                    connect with potential tenants.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                {% if session.get("role") == "owner" %}
+
+                <a
+                    href="{{ url_for('owner.add_property') }}"
+                    class="btn btn-light btn-lg"
+                >
+
+                    <i class="bi bi-plus-circle"></i>
+
+                    List Your Property
+
+                </a>
+
+                {% elif not session.get("user_id") %}
+
+                <a
+                    href="{{ url_for('auth.register') }}"
+                    class="btn btn-light btn-lg"
+                >
+
+                    Become an Owner
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="final-cta text-center">
+
+
+            <div class="cta-icon">
+
+                <i class="bi bi-house-heart"></i>
+
+            </div>
+
+
+            <h2>
+                Your next home is waiting.
+            </h2>
+
+
+            <p class="mx-auto">
+
+                Start exploring comfortable and affordable
+                rooms today.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('main.properties') }}"
+                class="btn btn-primary btn-lg px-5"
+            >
+
+                Explore Rooms
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

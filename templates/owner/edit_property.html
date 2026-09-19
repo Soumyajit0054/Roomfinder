@@ -1,0 +1,1142 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Property | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="property-form-page">
+
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9 col-xl-8">
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                ================================================== -->
+
+                <div class="property-form-header">
+
+                    <div>
+
+                        <span class="form-eyebrow">
+                            OWNER PANEL
+                        </span>
+
+                        <h1>
+                            Edit Your Property
+                        </h1>
+
+                        <p>
+                            Update your property information and manage
+                            your property photos.
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-header-icon">
+
+                        <i class="bi bi-pencil-square"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     FORM CARD
+                ================================================== -->
+
+                <div class="property-form-card">
+
+
+                    <!-- =================================================
+                         FORM PROGRESS
+                    ================================================== -->
+
+                    <div class="form-progress">
+
+                        <div class="progress-step active">
+
+                            <span>1</span>
+
+                            <div>
+
+                                <strong>
+                                    Property Details
+                                </strong>
+
+                                <small>
+                                    Update information
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-line"></div>
+
+
+                        <div class="progress-step active">
+
+                            <span>2</span>
+
+                            <div>
+
+                                <strong>
+                                    Photos
+                                </strong>
+
+                                <small>
+                                    Manage images
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-line"></div>
+
+
+                        <div class="progress-step">
+
+                            <span>3</span>
+
+                            <div>
+
+                                <strong>
+                                    Save
+                                </strong>
+
+                                <small>
+                                    Review & update
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PROPERTY FORM
+                    ================================================== -->
+
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data"
+                        id="propertyForm"
+                    >
+
+
+                        <!-- =================================================
+                             BASIC INFORMATION
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-info-circle"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Basic Information
+                                    </h4>
+
+                                    <p>
+                                        Update the basic information of your property.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- TITLE -->
+
+                            <div class="mb-4">
+
+                                <label
+                                    for="title"
+                                    class="form-label"
+                                >
+
+                                    Property Title
+
+                                    <span class="required-star">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    class="form-control form-control-lg"
+                                    value="{{ property.title or '' }}"
+                                    maxlength="150"
+                                    required
+                                >
+
+
+                                <div class="form-help">
+                                    Give your property a clear and attractive title.
+                                </div>
+
+                            </div>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <div>
+
+                                <label
+                                    for="description"
+                                    class="form-label"
+                                >
+
+                                    Description
+
+                                </label>
+
+
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    class="form-control"
+                                    rows="5"
+                                    maxlength="2000"
+                                >{{ property.description or '' }}</textarea>
+
+
+                                <div class="form-help">
+                                    Keep the description updated with useful information.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             LOCATION
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-geo-alt"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Location
+                                    </h4>
+
+                                    <p>
+                                        Update where your property is located.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-4">
+
+
+                                <!-- LOCATION -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="location"
+                                        class="form-label"
+                                    >
+
+                                        City / Area
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+
+                                            <i class="bi bi-geo-alt"></i>
+
+                                        </span>
+
+
+                                        <input
+                                            type="text"
+                                            id="location"
+                                            name="location"
+                                            class="form-control"
+                                            value="{{ property.location or '' }}"
+                                            maxlength="150"
+                                            required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ADDRESS -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="address"
+                                        class="form-label"
+                                    >
+
+                                        Full Address
+
+                                    </label>
+
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+
+                                            <i class="bi bi-pin-map"></i>
+
+                                        </span>
+
+
+                                        <input
+                                            type="text"
+                                            id="address"
+                                            name="address"
+                                            class="form-control"
+                                            value="{{ property.address or '' }}"
+                                            maxlength="255"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             RENT & PROPERTY DETAILS
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-cash-stack"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Rent & Property Details
+                                    </h4>
+
+                                    <p>
+                                        Update rent and property preferences.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-4">
+
+
+                                <!-- MONTHLY RENT -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="rent"
+                                        class="form-label"
+                                    >
+
+                                        Monthly Rent
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+                                            ₹
+                                        </span>
+
+
+                                        <input
+                                            type="number"
+                                            id="rent"
+                                            name="rent"
+                                            class="form-control"
+                                            value="{{ property.rent }}"
+                                            min="1"
+                                            step="1"
+                                            required
+                                        >
+
+
+                                        <span class="input-group-text">
+                                            / month
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ROOM TYPE -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="room_type"
+                                        class="form-label"
+                                    >
+
+                                        Room Type
+
+                                        <span class="required-star">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <select
+                                        id="room_type"
+                                        name="room_type"
+                                        class="form-select"
+                                        required
+                                    >
+
+                                        <option
+                                            value="Single"
+                                            {% if property.room_type == "Single" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Single Room
+                                        </option>
+
+
+                                        <option
+                                            value="Double"
+                                            {% if property.room_type == "Double" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Double Room
+                                        </option>
+
+
+                                        <option
+                                            value="PG"
+                                            {% if property.room_type == "PG" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            PG
+                                        </option>
+
+
+                                        <option
+                                            value="1BHK"
+                                            {% if property.room_type == "1BHK" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            1BHK
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- FURNISHED -->
+
+                                <div class="col-md-4">
+
+                                    <label
+                                        for="furnished"
+                                        class="form-label"
+                                    >
+
+                                        Furnished
+
+                                    </label>
+
+
+                                    <select
+                                        id="furnished"
+                                        name="furnished"
+                                        class="form-select"
+                                    >
+
+                                        <option
+                                            value="Yes"
+                                            {% if property.furnished == "Yes" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Yes
+                                        </option>
+
+
+                                        <option
+                                            value="No"
+                                            {% if property.furnished == "No" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            No
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- FOOD -->
+
+                                <div class="col-md-4">
+
+                                    <label
+                                        for="food_available"
+                                        class="form-label"
+                                    >
+
+                                        Food Available
+
+                                    </label>
+
+
+                                    <select
+                                        id="food_available"
+                                        name="food_available"
+                                        class="form-select"
+                                    >
+
+                                        <option
+                                            value="Yes"
+                                            {% if property.food_available == "Yes" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Yes
+                                        </option>
+
+
+                                        <option
+                                            value="No"
+                                            {% if property.food_available == "No" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            No
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- GENDER -->
+
+                                <div class="col-md-4">
+
+                                    <label
+                                        for="gender_preference"
+                                        class="form-label"
+                                    >
+
+                                        Suitable For
+
+                                    </label>
+
+
+                                    <select
+                                        id="gender_preference"
+                                        name="gender_preference"
+                                        class="form-select"
+                                    >
+
+                                        <option
+                                            value="Any"
+                                            {% if property.gender_preference == "Any" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Anyone
+                                        </option>
+
+
+                                        <option
+                                            value="Male"
+                                            {% if property.gender_preference == "Male" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Male
+                                        </option>
+
+
+                                        <option
+                                            value="Female"
+                                            {% if property.gender_preference == "Female" %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Female
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             AVAILABILITY
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-toggle-on"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Property Availability
+                                    </h4>
+
+                                    <p>
+                                        Control whether tenants can see this property.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="available"
+                                        class="form-label"
+                                    >
+
+                                        Listing Status
+
+                                    </label>
+
+
+                                    <select
+                                        id="available"
+                                        name="available"
+                                        class="form-select"
+                                    >
+
+                                        <option
+                                            value="1"
+                                            {% if property.available == 1 %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Available
+                                        </option>
+
+
+                                        <option
+                                            value="0"
+                                            {% if property.available == 0 %}
+                                            selected
+                                            {% endif %}
+                                        >
+                                            Not Available
+                                        </option>
+
+                                    </select>
+
+
+                                    <div class="form-help">
+
+                                        Available properties can be found by tenants
+                                        through search.
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             EXISTING IMAGES
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-images"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Current Property Photos
+                                    </h4>
+
+                                    <p>
+                                        Select any photo you want to remove.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-3">
+
+                                {% for image in images or [] %}
+
+                                <div class="col-6 col-md-4">
+
+                                    <div class="card border-0 shadow-sm overflow-hidden">
+
+                                        <div
+                                            class="position-relative"
+                                        >
+
+                                            <img
+                                                src="{{ url_for(
+                                                    'static',
+                                                    filename='uploads/' + image.image
+                                                ) }}"
+                                                alt="{{ property.title }}"
+                                                class="img-fluid"
+                                                style="
+                                                    width:100%;
+                                                    height:180px;
+                                                    object-fit:cover;
+                                                "
+                                            >
+
+
+                                            <!-- DELETE CHECKBOX -->
+
+                                            <label
+                                                class="position-absolute"
+                                                style="
+                                                    top:10px;
+                                                    right:10px;
+                                                    background:white;
+                                                    border-radius:8px;
+                                                    padding:6px 9px;
+                                                    cursor:pointer;
+                                                    box-shadow:0 2px 8px rgba(0,0,0,.15);
+                                                "
+                                            >
+
+                                                <input
+                                                    type="checkbox"
+                                                    name="delete_images"
+                                                    value="{{ image.id }}"
+                                                    class="form-check-input me-1"
+                                                >
+
+                                                <span
+                                                    class="text-danger small fw-semibold"
+                                                >
+                                                    Remove
+                                                </span>
+
+                                            </label>
+
+                                        </div>
+
+
+                                        <div class="card-body p-2">
+
+                                            <small class="text-muted">
+                                                Select "Remove" to delete this photo.
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                {% else %}
+
+                                <div class="col-12">
+
+                                    <div class="text-muted small">
+
+                                        No property photos uploaded yet.
+
+                                    </div>
+
+                                </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             ADD NEW IMAGES
+                        ================================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <div class="section-icon">
+
+                                    <i class="bi bi-cloud-arrow-up"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Add New Photos
+                                    </h4>
+
+                                    <p>
+                                        Add new photos without removing the existing ones.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label
+                                    for="new_images"
+                                    class="form-label"
+                                >
+
+                                    Upload New Property Photos
+
+                                </label>
+
+
+                                <input
+                                    type="file"
+                                    id="new_images"
+                                    name="new_images"
+                                    class="form-control"
+                                    multiple
+                                    accept="image/*"
+                                >
+
+
+                                <div class="form-help">
+
+                                    You can select multiple images at once.
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- NEW IMAGE PREVIEW -->
+
+                            <div
+                                id="newImagePreview"
+                                class="row g-3 mt-2"
+                            >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             UPDATE NOTICE
+                        ================================================== -->
+
+                        <div class="publish-notice">
+
+                            <div class="publish-notice-icon">
+
+                                <i class="bi bi-shield-check"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Before saving changes
+                                </strong>
+
+                                <p>
+                                    Your existing photos will remain unless
+                                    you select them for removal.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             ACTION BUTTONS
+                        ================================================== -->
+
+                        <div class="form-actions">
+
+                            <a
+                                href="{{ url_for('owner.properties') }}"
+                                class="btn btn-light btn-lg"
+                            >
+
+                                <i class="bi bi-arrow-left me-2"></i>
+
+                                Cancel
+
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-lg"
+                            >
+
+                                <i class="bi bi-check2-circle me-2"></i>
+
+                                Update Property
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     NEW IMAGE PREVIEW
+========================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const imageInput =
+            document.getElementById("new_images");
+
+
+        const preview =
+            document.getElementById("newImagePreview");
+
+
+        if (!imageInput || !preview) {
+
+            return;
+
+        }
+
+
+        imageInput.addEventListener(
+            "change",
+            function () {
+
+                preview.innerHTML = "";
+
+
+                const files =
+                    Array.from(
+                        this.files
+                    );
+
+
+                files.forEach(
+                    function (file) {
+
+                        if (
+                            !file.type.startsWith(
+                                "image/"
+                            )
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const reader =
+                            new FileReader();
+
+
+                        reader.onload =
+                            function (event) {
+
+
+                                const col =
+                                    document.createElement(
+                                        "div"
+                                    );
+
+
+                                col.className =
+                                    "col-6 col-md-4";
+
+
+                                const card =
+                                    document.createElement(
+                                        "div"
+                                    );
+
+
+                                card.className =
+                                    "card border-0 shadow-sm overflow-hidden";
+
+
+                                const image =
+                                    document.createElement(
+                                        "img"
+                                    );
+
+
+                                image.src =
+                                    event.target.result;
+
+
+                                image.alt =
+                                    "New property image";
+
+
+                                image.style.width =
+                                    "100%";
+
+
+                                image.style.height =
+                                    "180px";
+
+
+                                image.style.objectFit =
+                                    "cover";
+
+
+                                card.appendChild(
+                                    image
+                                );
+
+
+                                col.appendChild(
+                                    card
+                                );
+
+
+                                preview.appendChild(
+                                    col
+                                );
+
+                            };
+
+
+                        reader.readAsDataURL(
+                            file
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+{% endblock %}

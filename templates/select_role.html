@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}
+Choose Your Role | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="role-page">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-9 col-lg-7 col-xl-6">
+
+                <div class="role-card-container">
+
+
+                    <!-- =========================================
+                         HEADER
+                    ========================================== -->
+
+                    <div class="text-center role-header">
+
+                        <div class="role-logo">
+
+                            <i class="bi bi-house-heart-fill"></i>
+
+                        </div>
+
+
+                        <span class="role-welcome">
+                            WELCOME TO ROOMFINDER
+                        </span>
+
+
+                        <h1>
+                            How will you use
+                            <span>RoomFinder?</span>
+                        </h1>
+
+
+                        <p>
+                            Choose your role to get a personalized
+                            experience tailored to your needs.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         ROLE OPTIONS
+                    ========================================== -->
+
+                    <form method="POST">
+
+                        <div class="role-options">
+
+
+                            <!-- TENANT -->
+
+                            <button
+                                type="submit"
+                                name="role"
+                                value="tenant"
+                                class="role-choice"
+                            >
+
+                                <div class="role-choice-icon tenant-icon">
+
+                                    <i class="bi bi-search"></i>
+
+                                </div>
+
+
+                                <div class="role-choice-content">
+
+                                    <span class="role-label">
+                                        I am a Tenant
+                                    </span>
+
+                                    <span class="role-description">
+                                        I'm looking for a room,
+                                        PG or rental property.
+                                    </span>
+
+
+                                    <span class="role-benefits">
+
+                                        <span>
+                                            <i class="bi bi-check2"></i>
+                                            Search properties
+                                        </span>
+
+                                        <span>
+                                            <i class="bi bi-check2"></i>
+                                            Save favorites
+                                        </span>
+
+                                    </span>
+
+                                </div>
+
+
+                                <div class="role-arrow">
+
+                                    <i class="bi bi-arrow-right"></i>
+
+                                </div>
+
+                            </button>
+
+
+                            <!-- OWNER -->
+
+                            <button
+                                type="submit"
+                                name="role"
+                                value="owner"
+                                class="role-choice"
+                            >
+
+                                <div class="role-choice-icon owner-icon">
+
+                                    <i class="bi bi-house-add"></i>
+
+                                </div>
+
+
+                                <div class="role-choice-content">
+
+                                    <span class="role-label">
+                                        I am a Property Owner
+                                    </span>
+
+                                    <span class="role-description">
+                                        I want to list and manage
+                                        my property for rent.
+                                    </span>
+
+
+                                    <span class="role-benefits">
+
+                                        <span>
+                                            <i class="bi bi-check2"></i>
+                                            List properties
+                                        </span>
+
+                                        <span>
+                                            <i class="bi bi-check2"></i>
+                                            Manage rental requests
+                                        </span>
+
+                                    </span>
+
+                                </div>
+
+
+                                <div class="role-arrow">
+
+                                    <i class="bi bi-arrow-right"></i>
+
+                                </div>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                    <!-- =========================================
+                         FOOTER NOTE
+                    ========================================== -->
+
+                    <div class="role-security">
+
+                        <i class="bi bi-shield-check"></i>
+
+                        <span>
+                            You can change your preferences later
+                            from your account settings.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

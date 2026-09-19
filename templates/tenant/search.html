@@ -1,0 +1,637 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Rooms | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="room-search-page">
+
+    <div class="container py-5">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <div class="search-page-header">
+
+            <div>
+
+                <span class="search-eyebrow">
+                    ROOMFINDER
+                </span>
+
+                <h1>
+                    Find Your Perfect Room
+                </h1>
+
+                <p>
+                    Search comfortable and affordable rental
+                    properties based on your preferences.
+                </p>
+
+            </div>
+
+
+            <div class="search-header-icon">
+
+                <i class="bi bi-house-heart"></i>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             SEARCH FILTER CARD
+        ====================================================== -->
+
+        <div class="room-search-card">
+
+            <div class="room-search-card-header">
+
+                <div>
+
+                    <h3>
+                        <i class="bi bi-sliders me-2"></i>
+                        Search & Filter
+                    </h3>
+
+                    <p>
+                        Refine your search to find a room that
+                        matches your requirements.
+                    </p>
+
+                </div>
+
+
+                <!-- RESET -->
+
+                <a
+                    href="{{ url_for('tenant.search') }}"
+                    class="clear-search-link"
+                >
+
+                    <i class="bi bi-arrow-clockwise me-1"></i>
+
+                    Reset
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 SEARCH FORM
+            ================================================== -->
+
+            <form
+                method="GET"
+                action="{{ url_for('tenant.search') }}"
+                class="room-search-form"
+            >
+
+                <div class="row g-3">
+
+
+                    <!-- LOCATION -->
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <label
+                            for="location"
+                            class="search-field-label"
+                        >
+
+                            <i class="bi bi-geo-alt"></i>
+
+                            Location
+
+                        </label>
+
+
+                        <div class="search-input-wrapper">
+
+                            <i class="bi bi-search"></i>
+
+                            <input
+                                type="text"
+                                id="location"
+                                name="location"
+                                class="form-control"
+                                placeholder="Enter location"
+                                value="{{ location or '' }}"
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MINIMUM RENT -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <label
+                            for="min_rent"
+                            class="search-field-label"
+                        >
+
+                            <i class="bi bi-currency-rupee"></i>
+
+                            Min Rent
+
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="min_rent"
+                            name="min_rent"
+                            class="form-control"
+                            placeholder="₹ Minimum"
+                            min="0"
+                            step="1"
+                            value="{{ min_rent or '' }}"
+                        >
+
+                    </div>
+
+
+                    <!-- MAXIMUM RENT -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <label
+                            for="max_rent"
+                            class="search-field-label"
+                        >
+
+                            <i class="bi bi-currency-rupee"></i>
+
+                            Max Rent
+
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="max_rent"
+                            name="max_rent"
+                            class="form-control"
+                            placeholder="₹ Maximum"
+                            min="0"
+                            step="1"
+                            value="{{ max_rent or '' }}"
+                        >
+
+                    </div>
+
+
+                    <!-- ROOM TYPE -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <label
+                            for="room_type"
+                            class="search-field-label"
+                        >
+
+                            <i class="bi bi-door-open"></i>
+
+                            Room Type
+
+                        </label>
+
+
+                        <select
+                            id="room_type"
+                            name="room_type"
+                            class="form-select"
+                        >
+
+                            <option value="">
+                                Any Type
+                            </option>
+
+
+                            <option
+                                value="Single"
+                                {% if room_type == "Single" %}
+                                selected
+                                {% endif %}
+                            >
+                                Single
+                            </option>
+
+
+                            <option
+                                value="Double"
+                                {% if room_type == "Double" %}
+                                selected
+                                {% endif %}
+                            >
+                                Double
+                            </option>
+
+
+                            <option
+                                value="PG"
+                                {% if room_type == "PG" %}
+                                selected
+                                {% endif %}
+                            >
+                                PG
+                            </option>
+
+
+                            <option
+                                value="1BHK"
+                                {% if room_type == "1BHK" %}
+                                selected
+                                {% endif %}
+                            >
+                                1BHK
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- FURNISHED -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <label
+                            for="furnished"
+                            class="search-field-label"
+                        >
+
+                            <i class="bi bi-box-seam"></i>
+
+                            Furnished
+
+                        </label>
+
+
+                        <select
+                            id="furnished"
+                            name="furnished"
+                            class="form-select"
+                        >
+
+                            <option value="">
+                                Any
+                            </option>
+
+
+                            <option
+                                value="Yes"
+                                {% if furnished == "Yes" %}
+                                selected
+                                {% endif %}
+                            >
+                                Furnished
+                            </option>
+
+
+                            <option
+                                value="No"
+                                {% if furnished == "No" %}
+                                selected
+                                {% endif %}
+                            >
+                                Unfurnished
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- SEARCH BUTTON -->
+
+                    <div class="col-lg-1 col-md-6">
+
+                        <label
+                            class="search-field-label search-label-hidden"
+                        >
+                            Search
+                        </label>
+
+
+                        <button
+                            type="submit"
+                            class="search-submit-button w-100"
+                            title="Search Rooms"
+                        >
+
+                            <i class="bi bi-search"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- =====================================================
+             RESULTS HEADER
+        ====================================================== -->
+
+        <div class="search-results-header">
+
+            <div>
+
+                <span class="results-eyebrow">
+                    PROPERTY LISTINGS
+                </span>
+
+                <h2>
+                    Available Rooms
+                </h2>
+
+                <p>
+
+                    {% if properties %}
+
+                        {{ properties|length }}
+                        room{% if properties|length != 1 %}s{% endif %}
+                        found matching your search.
+
+                    {% else %}
+
+                        No properties match your current filters.
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            {% if properties %}
+
+            <span class="results-count">
+
+                <i class="bi bi-house-check me-1"></i>
+
+                {{ properties|length }}
+
+                Found
+
+            </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =====================================================
+             PROPERTY RESULTS
+        ====================================================== -->
+
+        <div class="row g-4">
+
+
+            {% for property in properties %}
+
+            <div class="col-md-6 col-lg-4">
+
+                <article class="search-property-card">
+
+
+                    <!-- PROPERTY IMAGE -->
+
+                    <div class="search-property-image-wrapper">
+
+                        {% if property.image %}
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='uploads/' + property.image
+                            ) }}"
+                            alt="{{ property.title }}"
+                            class="search-property-image"
+                            loading="lazy"
+                        >
+
+                        {% else %}
+
+                        <div class="search-property-placeholder">
+
+                            <i class="bi bi-house"></i>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- AVAILABLE -->
+
+                        <span class="search-available-badge">
+
+                            <span></span>
+
+                            Available
+
+                        </span>
+
+
+                        <!-- ROOM TYPE -->
+
+                        {% if property.room_type %}
+
+                        <span class="search-room-type">
+
+                            {{ property.room_type }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- PROPERTY INFORMATION -->
+
+                    <div class="search-property-body">
+
+
+                        <h3>
+                            {{ property.title }}
+                        </h3>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="search-property-location">
+
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                            <span>
+                                {{ property.location }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- FEATURES -->
+
+                        <div class="search-property-features">
+
+
+                            {% if property.furnished %}
+
+                            <span>
+
+                                <i class="bi bi-box-seam"></i>
+
+                                {{ property.furnished }}
+
+                            </span>
+
+                            {% endif %}
+
+
+                            {% if property.food_available %}
+
+                            <span>
+
+                                <i class="bi bi-cup-hot"></i>
+
+                                Food {{ property.food_available }}
+
+                            </span>
+
+                            {% endif %}
+
+
+                            {% if property.gender_preference %}
+
+                            <span>
+
+                                <i class="bi bi-people"></i>
+
+                                {{ property.gender_preference }}
+
+                            </span>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                        <!-- CARD FOOTER -->
+
+                        <div class="search-property-footer">
+
+
+                            <div class="search-property-price">
+
+                                <strong>
+                                    ₹{{ property.rent }}
+                                </strong>
+
+                                <span>
+                                    / month
+                                </span>
+
+                            </div>
+
+
+                            <a
+                                href="{{ url_for(
+                                    'main.property_details',
+                                    property_id=property.id
+                                ) }}"
+                                class="search-view-button"
+                            >
+
+                                View Details
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+
+                        </div>
+
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            {% else %}
+
+
+            <!-- =================================================
+                 NO RESULTS
+            ================================================== -->
+
+            <div class="col-12">
+
+                <div class="search-empty-state">
+
+                    <div class="search-empty-icon">
+
+                        <i class="bi bi-search"></i>
+
+                    </div>
+
+
+                    <h3>
+                        No Matching Rooms Found
+                    </h3>
+
+
+                    <p>
+
+                        We couldn't find any properties matching
+                        your current search criteria.
+
+                        Try changing your location or rent range.
+
+                    </p>
+
+
+                    <a
+                        href="{{ url_for('tenant.search') }}"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="bi bi-arrow-clockwise me-2"></i>
+
+                        Clear Search
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

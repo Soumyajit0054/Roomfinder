@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h2>
+        Admin Dashboard
+    </h2>
+
+
+    <div class="row g-4 mt-3">
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h6>
+                        Total Users
+                    </h6>
+
+                    <h2>
+                        {{ users }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h6>
+                        Tenants
+                    </h6>
+
+                    <h2>
+                        {{ tenants }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h6>
+                        Owners
+                    </h6>
+
+                    <h2>
+                        {{ owners }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h6>
+                        Properties
+                    </h6>
+
+                    <h2>
+                        {{ properties }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="mt-5">
+
+        <a
+            href="{{ url_for('admin.users') }}"
+            class="btn btn-primary"
+        >
+            Manage Users
+        </a>
+
+        <a
+            href="{{ url_for('admin.properties') }}"
+            class="btn btn-primary"
+        >
+            Manage Properties
+        </a>
+
+        <a
+            href="{{ url_for('admin.requests') }}"
+            class="btn btn-primary"
+        >
+            Rental Requests
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

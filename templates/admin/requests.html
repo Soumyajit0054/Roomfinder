@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+All Rental Requests
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h2>
+        All Rental Requests
+    </h2>
+
+
+    <div class="table-responsive mt-4">
+
+        <table class="table table-bordered">
+
+            <thead>
+
+                <tr>
+                    <th>Tenant</th>
+                    <th>Owner</th>
+                    <th>Property</th>
+                    <th>Rent</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for request in requests %}
+
+                <tr>
+
+                    <td>
+                        {{ request.tenant_name }}
+                    </td>
+
+                    <td>
+                        {{ request.owner_name }}
+                    </td>
+
+                    <td>
+                        {{ request.title }}
+                    </td>
+
+                    <td>
+                        ₹{{ request.rent }}
+                    </td>
+
+                    <td>
+                        {{ request.status }}
+                    </td>
+
+                    <td>
+                        {{ request.created_at }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

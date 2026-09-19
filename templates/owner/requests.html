@@ -1,0 +1,517 @@
+{% extends "base.html" %}
+
+{% block title %}
+Rental Requests | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- PAGE HEADER -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <span class="text-primary fw-bold small">
+                OWNER PANEL
+            </span>
+
+            <h1 class="fw-bold mb-1">
+                Rental Requests
+            </h1>
+
+            <p class="text-muted mb-0">
+                View tenants who are interested in your properties.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('owner.dashboard') }}"
+            class="btn btn-outline-primary"
+        >
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+
+    <!-- REQUEST COUNT -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <div class="d-flex align-items-center">
+
+                <div
+                    class="rounded-circle bg-primary bg-opacity-10
+                           text-primary d-flex align-items-center
+                           justify-content-center"
+                    style="width:50px;height:50px;"
+                >
+
+                    <i class="bi bi-envelope fs-5"></i>
+
+                </div>
+
+
+                <div class="ms-3">
+
+                    <small class="text-muted">
+                        Total Rental Requests
+                    </small>
+
+                    <h4 class="mb-0 fw-bold">
+                        {{ requests|length }}
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- REQUESTS -->
+
+    {% if requests %}
+
+    <div class="row g-4">
+
+        {% for request in requests %}
+
+        <div class="col-lg-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+
+                    <!-- PROPERTY -->
+
+                    <div class="d-flex justify-content-between
+                                align-items-start mb-4">
+
+                        <div>
+
+                            <small class="text-muted">
+                                PROPERTY
+                            </small>
+
+                            <h4 class="fw-bold mb-1">
+
+                                {{ request.title }}
+
+                            </h4>
+
+                            <div class="text-muted small">
+
+                                <i class="bi bi-geo-alt me-1"></i>
+
+                                {{ request.location }}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        {% if request.status == "pending" %}
+
+                        <span class="badge bg-warning text-dark">
+
+                            <i class="bi bi-clock me-1"></i>
+
+                            Pending
+
+                        </span>
+
+                        {% elif request.status == "accepted" %}
+
+                        <span class="badge bg-success">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            Accepted
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger">
+
+                            <i class="bi bi-x-circle me-1"></i>
+
+                            Rejected
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- RENT -->
+
+                    <div
+                        class="bg-light rounded p-3 mb-4"
+                    >
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <span class="text-muted">
+
+                                <i class="bi bi-cash-stack me-1"></i>
+
+                                Monthly Rent
+
+                            </span>
+
+                            <strong class="text-primary fs-5">
+
+                                ₹{{ request.rent }}
+
+                                <small class="text-muted fs-6">
+                                    / month
+                                </small>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TENANT -->
+
+                    <div class="border-top pt-4">
+
+                        <small class="text-primary fw-bold">
+                            TENANT INFORMATION
+                        </small>
+
+
+                        <div class="mt-3">
+
+
+                            <!-- NAME -->
+
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div
+                                    class="rounded-circle
+                                           bg-primary bg-opacity-10
+                                           text-primary
+                                           d-flex align-items-center
+                                           justify-content-center"
+                                    style="width:42px;height:42px;"
+                                >
+
+                                    <i class="bi bi-person"></i>
+
+                                </div>
+
+
+                                <div class="ms-3">
+
+                                    <small class="text-muted d-block">
+                                        Name
+                                    </small>
+
+                                    <strong>
+                                        {{ request.tenant_name }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div
+                                    class="rounded-circle
+                                           bg-primary bg-opacity-10
+                                           text-primary
+                                           d-flex align-items-center
+                                           justify-content-center"
+                                    style="width:42px;height:42px;"
+                                >
+
+                                    <i class="bi bi-envelope"></i>
+
+                                </div>
+
+
+                                <div class="ms-3">
+
+                                    <small class="text-muted d-block">
+                                        Email
+                                    </small>
+
+                                    <a
+                                        href="mailto:{{ request.tenant_email }}"
+                                        class="text-decoration-none"
+                                    >
+                                        {{ request.tenant_email }}
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            <div class="d-flex align-items-center">
+
+                                <div
+                                    class="rounded-circle
+                                           bg-primary bg-opacity-10
+                                           text-primary
+                                           d-flex align-items-center
+                                           justify-content-center"
+                                    style="width:42px;height:42px;"
+                                >
+
+                                    <i class="bi bi-telephone"></i>
+
+                                </div>
+
+
+                                <div class="ms-3">
+
+                                    <small class="text-muted d-block">
+                                        Phone
+                                    </small>
+
+                                    {% if request.tenant_phone %}
+
+                                    <a
+                                        href="tel:{{ request.tenant_phone }}"
+                                        class="text-decoration-none"
+                                    >
+                                        {{ request.tenant_phone }}
+                                    </a>
+
+                                    {% else %}
+
+                                    <span class="text-muted">
+                                        Not provided
+                                    </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    {% if request.message %}
+
+                    <div class="mt-4">
+
+                        <small class="text-primary fw-bold">
+                            TENANT MESSAGE
+                        </small>
+
+                        <div
+                            class="bg-light rounded p-3 mt-2"
+                        >
+
+                            <i class="bi bi-chat-left-text
+                                      text-muted me-2">
+                            </i>
+
+                            <span>
+                                {{ request.message }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <!-- DATE -->
+
+                    <div
+                        class="border-top mt-4 pt-3
+                               text-muted small"
+                    >
+
+                        <i class="bi bi-calendar3 me-1"></i>
+
+                        Request received:
+
+                        {{ request.created_at }}
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    {% if request.status == "pending" %}
+
+                    <div class="d-flex gap-2 mt-4">
+
+
+                        <!-- ACCEPT -->
+
+                        <form
+                            action="{{ url_for(
+                                'owner.update_request',
+                                request_id=request.id,
+                                status='accepted'
+                            ) }}"
+                            method="POST"
+                            class="flex-grow-1"
+                        >
+
+                            <button
+                                type="submit"
+                                class="btn btn-success w-100"
+                                onclick="
+                                    return confirm(
+                                        'Accept this rental request?'
+                                    );
+                                "
+                            >
+
+                                <i class="bi bi-check-lg me-1"></i>
+
+                                Accept
+
+                            </button>
+
+                        </form>
+
+
+                        <!-- REJECT -->
+
+                        <form
+                            action="{{ url_for(
+                                'owner.update_request',
+                                request_id=request.id,
+                                status='rejected'
+                            ) }}"
+                            method="POST"
+                            class="flex-grow-1"
+                        >
+
+                            <button
+                                type="submit"
+                                class="btn btn-outline-danger w-100"
+                                onclick="
+                                    return confirm(
+                                        'Reject this rental request?'
+                                    );
+                                "
+                            >
+
+                                <i class="bi bi-x-lg me-1"></i>
+
+                                Reject
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- EMPTY STATE -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body text-center py-5">
+
+            <div
+                class="rounded-circle
+                       bg-primary bg-opacity-10
+                       text-primary
+                       d-inline-flex
+                       align-items-center
+                       justify-content-center mb-3"
+                style="width:80px;height:80px;"
+            >
+
+                <i class="bi bi-envelope-open fs-2"></i>
+
+            </div>
+
+
+            <h3 class="fw-bold">
+                No Rental Requests Yet
+            </h3>
+
+
+            <p class="text-muted mx-auto"
+               style="max-width:500px;">
+
+                You haven't received any rental requests yet.
+                Once a tenant is interested in one of your
+                properties, their request will appear here.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('owner.properties') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-houses me-2"></i>
+
+                View My Properties
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

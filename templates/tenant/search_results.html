@@ -1,0 +1,405 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Results | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="d-flex justify-content-between
+                align-items-center mb-4">
+
+        <div>
+
+            <span class="text-primary fw-bold small">
+                ROOMFINDER
+            </span>
+
+            <h1 class="fw-bold mb-1">
+                Search Results
+            </h1>
+
+            <p class="text-muted mb-0">
+
+                {% if properties %}
+
+                    {{ properties|length }}
+                    properties found
+
+                {% else %}
+
+                    No matching properties found
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('tenant.search') }}"
+            class="btn btn-outline-primary"
+        >
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            New Search
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         SEARCH SUMMARY
+    ====================================================== -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+
+                {% if location %}
+
+                <div class="col-md-auto">
+
+                    <span class="badge bg-light text-dark p-2">
+
+                        <i class="bi bi-geo-alt text-primary me-1"></i>
+
+                        {{ location }}
+
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if min_rent %}
+
+                <div class="col-md-auto">
+
+                    <span class="badge bg-light text-dark p-2">
+
+                        <i class="bi bi-currency-rupee
+                                  text-primary me-1"></i>
+
+                        Min: ₹{{ min_rent }}
+
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if max_rent %}
+
+                <div class="col-md-auto">
+
+                    <span class="badge bg-light text-dark p-2">
+
+                        <i class="bi bi-currency-rupee
+                                  text-primary me-1"></i>
+
+                        Max: ₹{{ max_rent }}
+
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if room_type %}
+
+                <div class="col-md-auto">
+
+                    <span class="badge bg-light text-dark p-2">
+
+                        <i class="bi bi-door-open
+                                  text-primary me-1"></i>
+
+                        {{ room_type }}
+
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if furnished %}
+
+                <div class="col-md-auto">
+
+                    <span class="badge bg-light text-dark p-2">
+
+                        <i class="bi bi-house
+                                  text-primary me-1"></i>
+
+                        {{ furnished }}
+
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         RESULTS
+    ====================================================== -->
+
+    {% if properties %}
+
+    <div class="row g-4">
+
+
+        {% for property in properties %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card border-0 shadow-sm h-100
+                        overflow-hidden">
+
+
+                <!-- IMAGE -->
+
+                {% if property.image %}
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='uploads/' + property.image
+                    ) }}"
+                    alt="{{ property.title }}"
+                    class="card-img-top property-image"
+                >
+
+                {% else %}
+
+                <div class="placeholder-image">
+
+                    <i class="bi bi-house"></i>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- CONTENT -->
+
+                <div class="card-body p-4">
+
+
+                    <div class="d-flex
+                                justify-content-between
+                                align-items-start mb-2">
+
+                        <h5 class="fw-bold mb-0">
+
+                            {{ property.title }}
+
+                        </h5>
+
+
+                        {% if property.room_type %}
+
+                        <span class="badge bg-primary">
+
+                            {{ property.room_type }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <p class="text-muted mb-3">
+
+                        <i class="bi bi-geo-alt-fill
+                                  text-primary me-1"></i>
+
+                        {{ property.location }}
+
+                    </p>
+
+
+                    <!-- RENT -->
+
+                    <h4 class="text-primary fw-bold">
+
+                        ₹{{ property.rent }}
+
+                        <small class="text-muted fs-6">
+                            / month
+                        </small>
+
+                    </h4>
+
+
+                    <!-- FEATURES -->
+
+                    <div class="d-flex flex-wrap gap-2 mt-3 mb-4">
+
+
+                        {% if property.furnished %}
+
+                        <span class="badge bg-light text-dark">
+
+                            <i class="bi bi-box-seam me-1"></i>
+
+                            {{ property.furnished }}
+
+                        </span>
+
+                        {% endif %}
+
+
+                        {% if property.food_available %}
+
+                        <span class="badge bg-light text-dark">
+
+                            <i class="bi bi-cup-hot me-1"></i>
+
+                            Food {{ property.food_available }}
+
+                        </span>
+
+                        {% endif %}
+
+
+                        {% if property.gender_preference %}
+
+                        <span class="badge bg-light text-dark">
+
+                            <i class="bi bi-people me-1"></i>
+
+                            {{ property.gender_preference }}
+
+                        </span>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- DETAILS -->
+
+                    <a
+                        href="{{ url_for(
+                            'main.property_details',
+                            property_id=property.id
+                        ) }}"
+                        class="btn btn-primary w-100"
+                    >
+
+                        View Property
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =====================================================
+         NO RESULTS
+    ====================================================== -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body text-center py-5">
+
+
+            <div
+                class="rounded-circle bg-light
+                       d-inline-flex
+                       align-items-center
+                       justify-content-center
+                       mb-4"
+                style="width:90px;height:90px;"
+            >
+
+                <i class="bi bi-search
+                          text-primary fs-2">
+                </i>
+
+            </div>
+
+
+            <h3 class="fw-bold">
+                No Rooms Found
+            </h3>
+
+
+            <p class="text-muted mx-auto"
+               style="max-width:500px;">
+
+                We couldn't find any available properties
+                matching your search.
+
+                Try changing your location or increasing
+                your rent range.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('tenant.search') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-search me-2"></i>
+
+                Search Again
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

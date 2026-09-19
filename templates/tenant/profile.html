@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Profile | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="tenant-profile-page">
+
+    <div class="container py-5">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <div class="tenant-profile-header">
+
+            <div>
+
+                <span class="profile-eyebrow">
+                    ACCOUNT
+                </span>
+
+                <h1>
+                    My Profile
+                </h1>
+
+                <p>
+                    View your personal information and
+                    RoomFinder account details.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('tenant.dashboard') }}"
+                class="btn btn-light"
+            >
+
+                <i class="bi bi-arrow-left me-2"></i>
+
+                Dashboard
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             PROFILE CONTENT
+        ====================================================== -->
+
+        <div class="row g-4">
+
+
+            <!-- =================================================
+                 PROFILE SUMMARY
+            ================================================== -->
+
+            <div class="col-lg-4">
+
+                <div class="tenant-profile-summary">
+
+                    <div class="tenant-profile-avatar">
+
+                        <i class="bi bi-person-fill"></i>
+
+                    </div>
+
+
+                    <h2>
+                        {{ user.name }}
+                    </h2>
+
+
+                    <span class="tenant-profile-role">
+
+                        <i class="bi bi-person-check"></i>
+
+                        Tenant
+
+                    </span>
+
+
+                    <div class="tenant-account-status">
+
+                        <span class="account-status-dot"></span>
+
+                        Active Account
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PERSONAL INFORMATION
+            ================================================== -->
+
+            <div class="col-lg-8">
+
+                <div class="tenant-profile-card">
+
+
+                    <!-- CARD HEADER -->
+
+                    <div class="tenant-profile-card-header">
+
+                        <div>
+
+                            <h3>
+                                Personal Information
+                            </h3>
+
+                            <p>
+                                Your registered RoomFinder account details.
+                            </p>
+
+                        </div>
+
+
+                        <div class="tenant-profile-header-icon">
+
+                            <i class="bi bi-person-vcard"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DETAILS -->
+
+                    <div class="tenant-profile-details">
+
+
+                        <!-- NAME -->
+
+                        <div class="tenant-profile-detail">
+
+                            <div class="tenant-detail-icon">
+
+                                <i class="bi bi-person"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Full Name
+                                </span>
+
+                                <strong>
+                                    {{ user.name }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="tenant-profile-detail">
+
+                            <div class="tenant-detail-icon">
+
+                                <i class="bi bi-envelope"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Email Address
+                                </span>
+
+                                <strong>
+                                    {{ user.email }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="tenant-profile-detail">
+
+                            <div class="tenant-detail-icon">
+
+                                <i class="bi bi-telephone"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Phone Number
+                                </span>
+
+
+                                {% if user.phone %}
+
+                                <strong>
+                                    {{ user.phone }}
+                                </strong>
+
+                                {% else %}
+
+                                <strong class="text-muted">
+                                    Not provided
+                                </strong>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ROLE -->
+
+                        <div class="tenant-profile-detail">
+
+                            <div class="tenant-detail-icon">
+
+                                <i class="bi bi-shield-check"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Account Type
+                                </span>
+
+                                <strong>
+                                    {{ user.role|capitalize }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SECURITY NOTICE -->
+
+                    <div class="tenant-profile-security">
+
+                        <div class="tenant-security-icon">
+
+                            <i class="bi bi-shield-lock"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Account Security
+                            </strong>
+
+                            <p>
+                                Keep your account information private.
+                                Never share your RoomFinder password
+                                with anyone.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             QUICK ACTIONS
+        ====================================================== -->
+
+        <div class="tenant-profile-actions mt-4">
+
+            <div>
+
+                <h4>
+                    Quick Access
+                </h4>
+
+                <p>
+                    Continue searching for rooms or check
+                    the properties you have saved.
+                </p>
+
+            </div>
+
+
+            <div class="d-flex gap-2 flex-wrap">
+
+
+                <a
+                    href="{{ url_for('main.properties') }}"
+                    class="btn btn-outline-primary"
+                >
+
+                    <i class="bi bi-search me-2"></i>
+
+                    Find Rooms
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('tenant.favorites') }}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-heart me-2"></i>
+
+                    My Favorites
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

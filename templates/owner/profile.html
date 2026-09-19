@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}
+Owner Profile | RoomFinder
+{% endblock %}
+
+
+{% block content %}
+
+<div class="owner-profile-page">
+
+    <div class="container py-5">
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <div class="profile-page-header">
+
+            <div>
+
+                <span class="profile-eyebrow">
+                    ACCOUNT
+                </span>
+
+                <h1>
+                    Owner Profile
+                </h1>
+
+                <p>
+                    View and manage your RoomFinder account information.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('owner.dashboard') }}"
+                class="btn btn-light"
+            >
+
+                <i class="bi bi-arrow-left me-2"></i>
+
+                Dashboard
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             PROFILE CONTENT
+        ====================================================== -->
+
+        <div class="row g-4">
+
+
+            <!-- PROFILE CARD -->
+
+            <div class="col-lg-4">
+
+                <div class="profile-summary-card">
+
+                    <div class="profile-avatar">
+
+                        <i class="bi bi-person-fill"></i>
+
+                    </div>
+
+
+                    <h3>
+                        {{ user.name }}
+                    </h3>
+
+
+                    <span class="profile-role">
+
+                        <i class="bi bi-house-check"></i>
+
+                        Property Owner
+
+                    </span>
+
+
+                    <div class="profile-status">
+
+                        <span class="status-dot"></span>
+
+                        Active Account
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACCOUNT DETAILS -->
+
+            <div class="col-lg-8">
+
+                <div class="profile-details-card">
+
+
+                    <div class="profile-card-header">
+
+                        <div>
+
+                            <h4>
+                                Personal Information
+                            </h4>
+
+                            <p>
+                                Your registered account details.
+                            </p>
+
+                        </div>
+
+
+                        <div class="profile-header-icon">
+
+                            <i class="bi bi-person-vcard"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-details-list">
+
+
+                        <!-- NAME -->
+
+                        <div class="profile-detail-item">
+
+                            <div class="detail-icon">
+
+                                <i class="bi bi-person"></i>
+
+                            </div>
+
+
+                            <div class="detail-content">
+
+                                <span>
+                                    Full Name
+                                </span>
+
+                                <strong>
+                                    {{ user.name }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="profile-detail-item">
+
+                            <div class="detail-icon">
+
+                                <i class="bi bi-envelope"></i>
+
+                            </div>
+
+
+                            <div class="detail-content">
+
+                                <span>
+                                    Email Address
+                                </span>
+
+                                <strong>
+                                    {{ user.email }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="profile-detail-item">
+
+                            <div class="detail-icon">
+
+                                <i class="bi bi-telephone"></i>
+
+                            </div>
+
+
+                            <div class="detail-content">
+
+                                <span>
+                                    Phone Number
+                                </span>
+
+
+                                {% if user.phone %}
+
+                                <strong>
+                                    {{ user.phone }}
+                                </strong>
+
+                                {% else %}
+
+                                <strong class="text-muted">
+                                    Not provided
+                                </strong>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ROLE -->
+
+                        <div class="profile-detail-item">
+
+                            <div class="detail-icon">
+
+                                <i class="bi bi-shield-check"></i>
+
+                            </div>
+
+
+                            <div class="detail-content">
+
+                                <span>
+                                    Account Type
+                                </span>
+
+                                <strong>
+                                    Property Owner
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SECURITY NOTICE -->
+
+                    <div class="profile-security">
+
+                        <div class="security-icon">
+
+                            <i class="bi bi-shield-lock"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Account Security
+                            </strong>
+
+                            <p>
+                                Keep your account information private.
+                                RoomFinder will never ask you to share
+                                your password.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PROFILE ACTIONS
+        ====================================================== -->
+
+        <div class="profile-actions mt-4">
+
+            <div>
+
+                <h5>
+                    Manage Your Account
+                </h5>
+
+                <p>
+                    Access your properties and rental requests
+                    directly from your dashboard.
+                </p>
+
+            </div>
+
+
+            <div class="d-flex gap-2 flex-wrap">
+
+                <a
+                    href="{{ url_for('owner.properties') }}"
+                    class="btn btn-outline-primary"
+                >
+
+                    <i class="bi bi-houses me-2"></i>
+
+                    My Properties
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('owner.requests') }}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-envelope me-2"></i>
+
+                    Rental Requests
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
