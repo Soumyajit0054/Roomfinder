@@ -1,0 +1,26 @@
+/* Mobile / PWA layer. Loaded after style.css. */
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: hidden; padding-bottom: env(safe-area-inset-bottom); }
+.navbar { padding-top: max(0.5rem, env(safe-area-inset-top)); }
+img, video { max-width: 100%; height: auto; }
+
+/* Tables scroll horizontally instead of breaking the layout */
+.table-responsive-auto { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { max-width: 100%; }
+
+@media (max-width: 991.98px) {
+  .navbar .nav-link { padding: .75rem 1rem; }          /* 44px touch targets */
+  .btn, .form-control, .form-select { min-height: 44px; }
+  .container { padding-left: 16px; padding-right: 16px; }
+}
+@media (max-width: 575.98px) {
+  h1 { font-size: 1.75rem; } h2 { font-size: 1.5rem; }
+  .form-control, .form-select { font-size: 16px; }      /* stop iOS zoom on focus */
+}
+
+/* Install banner */
+#pwa-install { display: none; position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 1080; background: #0d6efd; color: #fff; padding: .75rem 1rem; border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.25); align-items: center; justify-content: space-between; gap: .5rem; }
+#pwa-install button { border: 0; border-radius: 8px; padding: .4rem .9rem; }
+@media (display-mode: standalone) { #pwa-install { display: none !important; } footer { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); } }

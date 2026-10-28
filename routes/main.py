@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_from_directory, current_app
 
 from database import query_all, query_one
 
@@ -119,3 +119,19 @@ def property_details(property_id):
         property=property_data,
         images=images
     )
+
+
+@main_bp.route("/sw.js")
+def service_worker():
+    # Served from the root so the worker's scope covers the whole site
+    response = send_from_directory(
+        current_app.static_folder, "sw.js",
+        mimetype="application/javascript"
+    )
+    response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
+@main_bp.route("/offline")
+def offline():
+    return render_template("offline.html")
