@@ -1,3 +1,10 @@
 Flask
 mysql-connector-python
 Werkzeug
+pypdf
+pdf2image
+pytesseract
+Pillow
+
+python-dotenv
+gunicorn

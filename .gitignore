@@ -1,0 +1,23 @@
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# User-uploaded content (property photos, government ID files) never belongs in git
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Mobile app
+mobile/node_modules/
+mobile/.expo/
+mobile/.claude/
+
+# OS / editor
+.DS_Store
+Thumbs.db
