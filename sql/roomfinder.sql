@@ -12,6 +12,22 @@ CREATE TABLE users (
 
     phone VARCHAR(20),
 
+    country VARCHAR(100) NOT NULL,
+
+    government_id_file VARCHAR(255) NOT NULL,
+
+    government_id_verified TINYINT(1) NOT NULL DEFAULT 0,
+
+    government_id_status ENUM(
+        'pending',
+        'auto_verified',
+        'rejected'
+    ) NOT NULL DEFAULT 'pending',
+
+    government_id_validation_method VARCHAR(30),
+
+    government_id_validation_notes TEXT,
+
     password VARCHAR(255) NOT NULL,
 
     role ENUM('tenant', 'owner', 'admin')
@@ -124,12 +140,30 @@ CREATE TABLE rental_requests (
 --
 -- This hash is for Werkzeug's password hashing.
 INSERT INTO users
-(name, email, phone, password, role)
+(
+    name,
+    email,
+    phone,
+    country,
+    government_id_file,
+    government_id_verified,
+    government_id_status,
+    government_id_validation_method,
+    government_id_validation_notes,
+    password,
+    role
+)
 VALUES
 (
     'Administrator',
     'admin@roomfinder.com',
     '0000000000',
+    'India',
+    'admin_seed.pdf',
+    1,
+    'auto_verified',
+    'seed',
+    'Seed admin account.',
     'scrypt:32768:8:1$admin$dummy',
     'admin'
 );

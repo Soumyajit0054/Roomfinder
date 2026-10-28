@@ -196,6 +196,7 @@ Create Account | RoomFinder
 
                     <form
                         method="POST"
+                        enctype="multipart/form-data"
                         novalidate
                     >
 
@@ -314,6 +315,107 @@ Create Account | RoomFinder
                                     autocomplete="tel"
                                     maxlength="20"
                                 >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- COUNTRY -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="country"
+                                class="form-label"
+                            >
+
+                                Country
+
+                            </label>
+
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-globe"></i>
+
+                                </span>
+
+
+                                <select
+                                    id="country"
+                                    name="country"
+                                    class="form-select"
+                                    autocomplete="country-name"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select your country
+                                    </option>
+
+                                    {% for country in countries %}
+
+                                        <option value="{{ country }}">
+                                            {{ country }}
+                                        </option>
+
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- GOVERNMENT ID -->
+
+                        <div
+                            class="mb-3 d-none"
+                            id="governmentIdGroup"
+                        >
+
+                            <label
+                                for="government_id"
+                                class="form-label"
+                            >
+
+                                Government ID PDF
+
+                            </label>
+
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-file-earmark-pdf"></i>
+
+                                </span>
+
+
+                                <input
+                                    type="file"
+                                    id="government_id"
+                                    name="government_id"
+                                    class="form-control"
+                                    accept="application/pdf,.pdf"
+                                    required
+                                    disabled
+                                >
+
+                            </div>
+
+
+                            <div class="password-hint">
+
+                                <i class="bi bi-shield-check"></i>
+
+                                Upload a clear government ID PDF for
+                                the selected country.
 
                             </div>
 
@@ -651,6 +753,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const togglePassword =
         document.getElementById("togglePassword");
 
+    const countrySelect =
+        document.getElementById("country");
+
+    const governmentIdGroup =
+        document.getElementById("governmentIdGroup");
+
+    const governmentIdInput =
+        document.getElementById("government_id");
+
 
     if (passwordInput && togglePassword) {
 
@@ -695,6 +806,42 @@ document.addEventListener("DOMContentLoaded", function () {
                         "aria-label",
                         "Show password"
                     );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (
+        countrySelect &&
+        governmentIdGroup &&
+        governmentIdInput
+    ) {
+
+        countrySelect.addEventListener(
+            "change",
+            function () {
+
+                const hasCountry =
+                    countrySelect.value.trim() !== "";
+
+                governmentIdGroup.classList.toggle(
+                    "d-none",
+                    !hasCountry
+                );
+
+                governmentIdInput.disabled =
+                    !hasCountry;
+
+                governmentIdInput.required =
+                    hasCountry;
+
+                if (!hasCountry) {
+
+                    governmentIdInput.value = "";
 
                 }
 
